@@ -11,12 +11,14 @@ namespace Fall2020_CSC403_Project.code {
     public int Health { get; private set; }
     public int MaxHealth { get; private set; }
     private float strength;
+    public int level { get; private set; }
+    public int xp { get; private set; }
 
     public event Action<int> AttackEvent;
 
     public BattleCharacter(Vector2 initPos, Collider collider) : base(initPos, collider) {
-      MaxHealth = 20;
-      strength = 2;
+      MaxHealth = 20 + (2*level);
+      strength = 2 + level;
       Health = MaxHealth;
     }
 
@@ -27,5 +29,20 @@ namespace Fall2020_CSC403_Project.code {
     public void AlterHealth(int amount) {
       Health += amount;
     }
+
+    public void levelup()
+        {
+            Health += 8;
+            strength += 2;
+        }
+
+    public void AddXP(int amount)
+        {
+            xp += amount;
+            if (100 % xp == 0)
+            {
+                levelup();
+            }
+        }
   }
 }

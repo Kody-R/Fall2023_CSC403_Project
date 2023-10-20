@@ -10,10 +10,13 @@ namespace Fall2020_CSC403_Project {
     public static FrmBattle instance = null;
     private Enemy enemy;
     private Player player;
+    public int level = 0;
+    public int xp = 0;
 
     private FrmBattle() {
       InitializeComponent();
       player = Game.player;
+      
     }
 
     public void Setup() {
@@ -70,11 +73,20 @@ namespace Fall2020_CSC403_Project {
       }
 
       UpdateHealthBars();
-      if (player.Health <= 0 || enemy.Health <= 0) {
+      if (player.Health <= 0) {
         instance = null;
         Close();
       }
-    }
+            else
+            {
+                if (enemy.Health <= 0)
+                {
+                    player.AddXP(50);
+                    instance = null;
+                    Close();
+                }
+            }
+     }
 
     private void EnemyDamage(int amount) {
       enemy.AlterHealth(amount);
