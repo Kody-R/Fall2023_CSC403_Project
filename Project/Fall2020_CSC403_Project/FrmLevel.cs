@@ -16,7 +16,7 @@ namespace Fall2020_CSC403_Project {
     private DateTime timeBegin;
     private FrmBattle frmBattle;
 
-        public PictureBox picItem { get; private set; }
+        public PictureBox picXpItem { get; private set; }
 
         public FrmLevel() {
       InitializeComponent();
@@ -30,12 +30,12 @@ namespace Fall2020_CSC403_Project {
       bossKoolaid = new Enemy(CreatePosition(picBossKoolAid), CreateCollider(picBossKoolAid, PADDING));
       enemyPoisonPacket = new Enemy(CreatePosition(picEnemyPoisonPacket), CreateCollider(picEnemyPoisonPacket, PADDING));
       enemyCheeto = new Enemy(CreatePosition(picEnemyCheeto), CreateCollider(picEnemyCheeto, PADDING));
-      xpItem = new Item(CreatePosition(picItem), CreateCollider(picItem, PADDING));
+      xpItem = new Item(CreatePosition(picXpItem), CreateCollider(picXpItem, PADDING));
 
       bossKoolaid.Img = picBossKoolAid.BackgroundImage;
       enemyPoisonPacket.Img = picEnemyPoisonPacket.BackgroundImage;
       enemyCheeto.Img = picEnemyCheeto.BackgroundImage;
-      xpItem.Img = picItem.BackgroundImage;
+      xpItem.Img = picXpItem.BackgroundImage;
 
       bossKoolaid.Color = Color.Red;
       enemyPoisonPacket.Color = Color.Green;
@@ -114,10 +114,18 @@ namespace Fall2020_CSC403_Project {
     }
     private void Pickup(Item item)
         {
-            player.ResetMoveSpeed();
-            player.MoveBack();
-            player.AddXP(100);
-            item.Color = Color.Black;
+            if (item.Color == Color.Orange)
+            {
+                player.ResetMoveSpeed();
+                player.MoveBack();
+                player.AddXP(100);
+                item.Color = Color.Black;
+            }
+            else
+            {
+                player.ResetMoveSpeed();
+                player.MoveBack();
+            }
         }
     private void Fight(Enemy enemy) {
       player.ResetMoveSpeed();
