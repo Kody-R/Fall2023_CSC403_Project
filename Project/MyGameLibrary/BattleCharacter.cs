@@ -33,7 +33,7 @@ namespace Fall2020_CSC403_Project.code {
     public void levelup()
         {
             level += 1;
-            Health += (8*level);
+            AlterHealth(8*level);
             strength += (2*level);
         }
 
