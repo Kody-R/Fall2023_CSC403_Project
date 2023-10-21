@@ -10,8 +10,6 @@ namespace Fall2020_CSC403_Project {
     public static FrmBattle instance = null;
     private Enemy enemy;
     private Player player;
-    public int level = 0;
-    public int xp = 0;
 
     private FrmBattle() {
       InitializeComponent();
