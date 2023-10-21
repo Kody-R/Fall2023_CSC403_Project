@@ -10,12 +10,15 @@ namespace Fall2020_CSC403_Project {
     private Enemy enemyPoisonPacket;
     private Enemy bossKoolaid;
     private Enemy enemyCheeto;
+    private Item xpItem;
     private Character[] walls;
 
     private DateTime timeBegin;
     private FrmBattle frmBattle;
 
-    public FrmLevel() {
+        public PictureBox picItem { get; private set; }
+
+        public FrmLevel() {
       InitializeComponent();
     }
 
@@ -27,14 +30,17 @@ namespace Fall2020_CSC403_Project {
       bossKoolaid = new Enemy(CreatePosition(picBossKoolAid), CreateCollider(picBossKoolAid, PADDING));
       enemyPoisonPacket = new Enemy(CreatePosition(picEnemyPoisonPacket), CreateCollider(picEnemyPoisonPacket, PADDING));
       enemyCheeto = new Enemy(CreatePosition(picEnemyCheeto), CreateCollider(picEnemyCheeto, PADDING));
+      xpItem = new Item(CreatePosition(picItem), CreateCollider(picItem, PADDING));
 
       bossKoolaid.Img = picBossKoolAid.BackgroundImage;
       enemyPoisonPacket.Img = picEnemyPoisonPacket.BackgroundImage;
       enemyCheeto.Img = picEnemyCheeto.BackgroundImage;
+      xpItem.Img = picItem.BackgroundImage;
 
       bossKoolaid.Color = Color.Red;
       enemyPoisonPacket.Color = Color.Green;
       enemyCheeto.Color = Color.FromArgb(255, 245, 161);
+      xpItem.Color = Color.Orange;
 
       walls = new Character[NUM_WALLS];
       for (int w = 0; w < NUM_WALLS; w++) {
@@ -84,7 +90,10 @@ namespace Fall2020_CSC403_Project {
       if (HitAChar(player, bossKoolaid)) {
         Fight(bossKoolaid);
       }
-
+      else if (HitAChar(player, xpItem))
+            {
+                Pickup(xpItem);
+            }
       // update player's picture box
       picPlayer.Location = new Point((int)player.Position.x, (int)player.Position.y);
     }
@@ -103,7 +112,13 @@ namespace Fall2020_CSC403_Project {
     private bool HitAChar(Character you, Character other) {
       return you.Collider.Intersects(other.Collider);
     }
-
+    private void Pickup(Item item)
+        {
+            player.ResetMoveSpeed();
+            player.MoveBack();
+            player.AddXP(100);
+            item.Color = Color.Black;
+        }
     private void Fight(Enemy enemy) {
       player.ResetMoveSpeed();
       player.MoveBack();
