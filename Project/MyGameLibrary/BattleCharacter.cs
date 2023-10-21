@@ -11,8 +11,8 @@ namespace Fall2020_CSC403_Project.code {
     public int Health { get; private set; }
     public int MaxHealth { get; private set; }
     private float strength;
-    public int level { get; private set; }
-    public int xp { get; private set; }
+    public int level;
+    public int xp;
 
     public event Action<int> AttackEvent;
 
