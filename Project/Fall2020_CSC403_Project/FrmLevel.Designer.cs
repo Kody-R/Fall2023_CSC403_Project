@@ -29,6 +29,7 @@
       this.tmrUpdateInGameTime = new System.Windows.Forms.Timer(this.components);
       this.tmrPlayerMove = new System.Windows.Forms.Timer(this.components);
       this.picEnemyCheeto = new System.Windows.Forms.PictureBox();
+      this.picXpItem = new System.Windows.Forms.PictureBox();
       this.picEnemyPoisonPacket = new System.Windows.Forms.PictureBox();
       this.picWall3 = new System.Windows.Forms.PictureBox();
       this.picBossKoolAid = new System.Windows.Forms.PictureBox();
@@ -47,6 +48,7 @@
       this.picWall11 = new System.Windows.Forms.PictureBox();
       ((System.ComponentModel.ISupportInitialize)(this.picEnemyCheeto)).BeginInit();
       ((System.ComponentModel.ISupportInitialize)(this.picEnemyPoisonPacket)).BeginInit();
+      ((System.ComponentModel.ISupportInitialize)(this.picXpItem)).BeginInit();   
       ((System.ComponentModel.ISupportInitialize)(this.picWall3)).BeginInit();
       ((System.ComponentModel.ISupportInitialize)(this.picBossKoolAid)).BeginInit();
       ((System.ComponentModel.ISupportInitialize)(this.picPlayer)).BeginInit();
@@ -98,6 +100,17 @@
       this.picEnemyCheeto.Size = new System.Drawing.Size(64, 107);
       this.picEnemyCheeto.TabIndex = 5;
       this.picEnemyCheeto.TabStop = false;
+      // 
+      // picXpItem
+      // 
+      this.picXpItem.BackColor = System.Drawing.Color.Transparent;
+      this.picXpItem.BackgroundImage = global::Fall2020_CSC403_Project.Properties.Resources.xpItem;
+      this.picXpItem.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+      this.picXpItem.Location = new System.Drawing.Point(546, 327);
+      this.picXpItem.Name = "picXpItem";
+      this.picXpItem.Size = new System.Drawing.Size(64, 107);
+      this.picXpItem.TabIndex = 5;
+      this.picXpItem.TabStop = false;
       // 
       // picEnemyPoisonPacket
       // 
@@ -296,6 +309,7 @@
       this.Controls.Add(this.picWall4);
       this.Controls.Add(this.picWall5);
       this.Controls.Add(this.picEnemyCheeto);
+      this.Controls.Add(this.picXpItem);
       this.Controls.Add(this.picEnemyPoisonPacket);
       this.Controls.Add(this.picWall3);
       this.Controls.Add(this.picBossKoolAid);
@@ -308,6 +322,7 @@
       this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FrmLevel_KeyDown);
       this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.FrmLevel_KeyUp);
       ((System.ComponentModel.ISupportInitialize)(this.picEnemyCheeto)).EndInit();
+      ((System.ComponentModel.ISupportInitialize)(this.picXpItem)).EndInit();
       ((System.ComponentModel.ISupportInitialize)(this.picEnemyPoisonPacket)).EndInit();
       ((System.ComponentModel.ISupportInitialize)(this.picWall3)).EndInit();
       ((System.ComponentModel.ISupportInitialize)(this.picBossKoolAid)).EndInit();
