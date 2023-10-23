@@ -79,8 +79,8 @@ namespace Fall2020_CSC403_Project {
             {
                 if (enemy.Health <= 0)
                 {
-                    player.AddXP(50);
-                    instance = null;
+                    player.AddXP(50);    //Calling the AddXP function to give the character more xp and possibly level up
+                    instance = null;  
                     Close();
                 }
             }

@@ -16,9 +16,7 @@ namespace Fall2020_CSC403_Project {
     private DateTime timeBegin;
     private FrmBattle frmBattle;
 
-        public PictureBox picXpItem { get; private set; }
-
-        public FrmLevel() {
+    public FrmLevel() {
       InitializeComponent();
     }
 
@@ -112,9 +110,9 @@ namespace Fall2020_CSC403_Project {
     private bool HitAChar(Character you, Character other) {
       return you.Collider.Intersects(other.Collider);
     }
-    private void Pickup(Item item)
+    private void Pickup(Item item) //Pickup function that will be called when a player picks up an item and this will give the player xp equal to one level
         {
-            if (item.Color == Color.Orange)
+            if (item.Color == Color.Orange) //This checks to see if the character has already picked up the item as to not give an infinite means of xp
             {
                 player.ResetMoveSpeed();
                 player.MoveBack();
