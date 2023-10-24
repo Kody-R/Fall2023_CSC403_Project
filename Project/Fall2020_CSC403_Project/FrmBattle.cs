@@ -10,6 +10,7 @@ namespace Fall2020_CSC403_Project {
     public static FrmBattle instance = null;
     private Enemy enemy;
     private Player player;
+    public Random random;
 
     private FrmBattle() {
       InitializeComponent();
@@ -63,7 +64,22 @@ namespace Fall2020_CSC403_Project {
       lblEnemyHealthFull.Text = enemy.Health.ToString();
     }
 
-    private void btnAttack_Click(object sender, EventArgs e) {
+    // Need to adjust to correct behavior
+    private void btnLightAttack_Click(object sender, EventArgs e) {
+      player.OnAttack(-2);
+      if (enemy.Health > 0) {
+        enemy.OnAttack(-2);
+      }
+
+      UpdateHealthBars();
+      if (player.Health <= 0 || enemy.Health <= 0) {
+        instance = null;
+        Close();
+      }
+    }
+
+    // Need to adjust to correct behavior
+    private void btnHeavyAttack_Click(object sender, EventArgs e) {
       player.OnAttack(-4);
       if (enemy.Health > 0) {
         enemy.OnAttack(-2);
@@ -75,6 +91,29 @@ namespace Fall2020_CSC403_Project {
         Close();
       }
     }
+
+    // Need to adjust to correct behavior
+    private void btnHeal_Click(object sender, EventArgs e) {
+       
+       if (enemy.Health > 0)
+       {
+           enemy.OnAttack(-2);
+       }
+
+       UpdateHealthBars();
+       if (player.Health <= 0 || enemy.Health <= 0)
+       {
+           instance = null;
+           Close();
+       }
+    }
+
+    // Need to adjust to correct behavior
+    private void btnFlee_Click(object sender, EventArgs e) {
+       instance = null;
+       Close();
+    }
+
 
     private void EnemyDamage(int amount) {
       enemy.AlterHealth(amount);
