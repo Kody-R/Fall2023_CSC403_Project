@@ -10,11 +10,14 @@ namespace Fall2020_CSC403_Project {
     public static FrmBattle instance = null;
     private Enemy enemy;
     private Player player;
-    public Random random;
+    public Random random = new Random();
+    public int randInt;
 
     private FrmBattle() {
       InitializeComponent();
       player = Game.player;
+      this.FormClosed += (s, args) => { instance = null; enemy.AttackEvent -= PlayerDamage; player.AttackEvent -= EnemyDamage; };
+      
     }
 
     public void Setup() {
@@ -64,9 +67,9 @@ namespace Fall2020_CSC403_Project {
       lblEnemyHealthFull.Text = enemy.Health.ToString();
     }
 
-    // Need to adjust to correct behavior
     private void btnLightAttack_Click(object sender, EventArgs e) {
-      player.OnAttack(-2);
+      randInt = random.Next(1,4);
+      player.OnAttack(-randInt);
       if (enemy.Health > 0) {
         enemy.OnAttack(-2);
       }
@@ -78,9 +81,9 @@ namespace Fall2020_CSC403_Project {
       }
     }
 
-    // Need to adjust to correct behavior
     private void btnHeavyAttack_Click(object sender, EventArgs e) {
-      player.OnAttack(-4);
+      randInt = random.Next(3,6);
+      player.OnAttack(-randInt);
       if (enemy.Health > 0) {
         enemy.OnAttack(-2);
       }
@@ -92,14 +95,20 @@ namespace Fall2020_CSC403_Project {
       }
     }
 
-    // Need to adjust to correct behavior
     private void btnHeal_Click(object sender, EventArgs e) {
        
        if (enemy.Health > 0)
        {
            enemy.OnAttack(-2);
        }
-
+       
+       randInt = random.Next(1,6);
+       while(player.MaxHealth < player.Health + randInt) { 
+           randInt--;
+       }
+       player.AlterHealth(randInt);
+       
+       
        UpdateHealthBars();
        if (player.Health <= 0 || enemy.Health <= 0)
        {
@@ -108,7 +117,6 @@ namespace Fall2020_CSC403_Project {
        }
     }
 
-    // Need to adjust to correct behavior
     private void btnFlee_Click(object sender, EventArgs e) {
        instance = null;
        Close();
