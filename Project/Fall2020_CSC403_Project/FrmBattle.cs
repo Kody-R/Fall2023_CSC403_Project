@@ -1,8 +1,9 @@
-﻿using Fall2020_CSC403_Project.code;
+using Fall2020_CSC403_Project.code;
 using Fall2020_CSC403_Project.Properties;
 using System;
 using System.Drawing;
 using System.Media;
+using System.Runtime.CompilerServices;
 using System.Windows.Forms;
 
 namespace Fall2020_CSC403_Project {
@@ -61,7 +62,40 @@ namespace Fall2020_CSC403_Project {
 
       lblPlayerHealthFull.Text = player.Health.ToString();
       lblEnemyHealthFull.Text = enemy.Health.ToString();
+
+      if (player.Health <= 0) {
+        playerDeath();
+      }
+
+      if (enemy.Health <= 0) {
+        enemyDeath();
+      }
     }
+
+    private void playerDeath() {
+      // Create a transparent panel to cover the form
+      Panel panelDeathScreen = new Panel();
+      panelDeathScreen.Name = "panelDeathScreen";
+      panelDeathScreen.Size = this.ClientSize; 
+      panelDeathScreen.BackColor = Color.Transparent; 
+      // set the background to death screen and make it cover the window
+      panelDeathScreen.BackgroundImage = Properties.Resources.DeathScreen; 
+      panelDeathScreen.BackgroundImageLayout = ImageLayout.Stretch; 
+
+      // Make the panel visible to cover the entire form
+      panelDeathScreen.Visible = true;
+
+      // Add the panel to the form's Controls collection
+      Controls.Add(panelDeathScreen);
+    }
+
+    private void enemyDeath() {
+      picEnemy = null;
+      Enemy.Image = null;
+      Enemy.Collide = null;
+    }
+
+  }
 
     private void btnAttack_Click(object sender, EventArgs e) {
       player.OnAttack(-4);
