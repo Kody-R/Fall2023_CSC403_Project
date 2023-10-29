@@ -103,7 +103,7 @@ namespace Fall2020_CSC403_Project
 
         private void enemyDeath(Enemy enemy)
         {
-            enemy.Img = null;
+            instance = null;
             enemy.Collider.MovePosition(0,0);
         }
 
