@@ -103,9 +103,8 @@ namespace Fall2020_CSC403_Project
 
         private void enemyDeath(Enemy enemy)
         {
-            picEnemy = null;
             enemy.Img = null;
-            enemy.collider = null;
+            enemy.Collider.MovePosition(0,0);
         }
 
     private void btnAttack_Click(object sender, EventArgs e)
