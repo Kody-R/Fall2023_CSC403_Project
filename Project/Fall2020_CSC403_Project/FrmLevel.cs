@@ -68,7 +68,10 @@ namespace Fall2020_CSC403_Project {
       string time = span.ToString(@"hh\:mm\:ss");
       lblInGameTime.Text = "Time: " + time.ToString();
     }
-
+    private void lvlUpdateInGameLevel_Tick(object sender, EventArgs e)
+        {
+            lblInGameLvl.Text = "Level: " + player.level.ToString();
+        }
     private void tmrPlayerMove_Tick(object sender, EventArgs e) {
       // move player
       player.Move();
@@ -163,5 +166,9 @@ namespace Fall2020_CSC403_Project {
     private void lblInGameTime_Click(object sender, EventArgs e) {
 
     }
+    private void lblInGameLvl_Click(object sender, EventArgs e)
+        {
+
+        }
   }
 }
