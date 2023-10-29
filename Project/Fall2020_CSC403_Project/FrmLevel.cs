@@ -121,7 +121,9 @@ namespace Fall2020_CSC403_Project {
                 player.MoveBack();
                 player.AddXP(100);
                 item.Color = Color.Black;
+                item.Collider.MovePosition(0, 0);
             }
+            
             else
             {
                 player.ResetMoveSpeed();
