@@ -87,7 +87,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <None Include="data\xpItem.png" />
-    <None Include="data\deathscreen.jpg" />
+    <None Include="data\deathscreen.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
