@@ -115,29 +115,7 @@ namespace Fall2020_CSC403_Project
         {
             enemy.OnAttack(-2);
         }
-        UpdateHealthBars();
-        {
-                float playerHealthPer = player.Health / (float)player.MaxHealth;
-                float enemyHealthPer = enemy.Health / (float)enemy.MaxHealth;
-
-                const int MAX_HEALTHBAR_WIDTH = 226;
-                lblPlayerHealthFull.Width = (int)(MAX_HEALTHBAR_WIDTH * playerHealthPer);
-                lblEnemyHealthFull.Width = (int)(MAX_HEALTHBAR_WIDTH * enemyHealthPer);
-
-                lblPlayerHealthFull.Text = player.Health.ToString();
-                lblEnemyHealthFull.Text = enemy.Health.ToString();
-
-                if (player.Health <= 0)
-                {
-                    playerDeath();
-                }
-
-                if (enemy.Health <= 0)
-                {
-                    player.AddXP(50);    //Calling the AddXP function to give the character more xp and possibly level up
-                    enemyDeath(enemy);
-                }
-            }
+            UpdateHealthBars();
         }
 
     private void EnemyDamage(int amount)
