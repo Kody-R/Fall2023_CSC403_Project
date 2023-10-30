@@ -115,7 +115,39 @@ namespace Fall2020_CSC403_Project.Properties {
                 return ResourceManager.GetStream("final_battle", resourceCulture);
             }
         }
-        
+
+        internal static System.IO.UnmanagedMemoryStream attack
+        {
+            get
+            {
+                return ResourceManager.GetStream("attack", resourceCulture);
+            }
+        }
+
+        internal static System.IO.UnmanagedMemoryStream heavy_attack
+        {
+            get
+            {
+                return ResourceManager.GetStream("heavyattack", resourceCulture);
+            }
+        }
+
+        internal static System.IO.UnmanagedMemoryStream death
+        {
+            get
+            {
+                return ResourceManager.GetStream("death", resourceCulture);
+            }
+        }
+
+        internal static System.IO.UnmanagedMemoryStream GameSoundtrack
+        {
+            get
+            {
+                return ResourceManager.GetStream("GameSoundtrack", resourceCulture);
+            }
+        }
+
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
