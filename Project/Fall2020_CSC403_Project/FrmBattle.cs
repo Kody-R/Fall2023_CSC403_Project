@@ -10,12 +10,14 @@ namespace Fall2020_CSC403_Project {
     public static FrmBattle instance = null;
     private Enemy enemy;
     private Player player;
+    SoundPlayer soundtrack = new SoundPlayer(Resources.GameSoundtrack);
     public Random random = new Random();
     public int randInt;
 
-    private FrmBattle() {
+        private FrmBattle() {
       InitializeComponent();
       player = Game.player;
+      soundtrack.Stop();
       this.FormClosed += (s, args) => { instance = null; enemy.AttackEvent -= PlayerDamage; player.AttackEvent -= EnemyDamage; };
       
     }
@@ -42,8 +44,9 @@ namespace Fall2020_CSC403_Project {
 
       SoundPlayer simpleSound = new SoundPlayer(Resources.final_battle);
       simpleSound.Play();
+      
 
-      tmrFinalBattle.Enabled = true;
+            tmrFinalBattle.Enabled = true;
     }
 
     public static FrmBattle GetInstance(Enemy enemy) {
@@ -51,6 +54,7 @@ namespace Fall2020_CSC403_Project {
         instance = new FrmBattle();
         instance.enemy = enemy;
         instance.Setup();
+       
       }
       return instance;
     }
@@ -81,6 +85,12 @@ namespace Fall2020_CSC403_Project {
       }
     }
 
+    private void btnAttack_Click(object sender, EventArgs e) {
+
+      SoundPlayer light_Attack = new SoundPlayer(Resources.attack);
+      light_Attack.Play();
+
+      player.OnAttack(-4);
     private void btnHeavyAttack_Click(object sender, EventArgs e) {
       randInt = random.Next(3,6);
       player.OnAttack(-randInt);
@@ -92,6 +102,7 @@ namespace Fall2020_CSC403_Project {
       if (player.Health <= 0 || enemy.Health <= 0) {
         instance = null;
         Close();
+        soundtrack.Play();
       }
     }
 
