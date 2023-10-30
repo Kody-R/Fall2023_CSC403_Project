@@ -12,6 +12,7 @@ namespace Fall2020_CSC403_Project {
     private Enemy enemyPoisonPacket;
     private Enemy bossKoolaid;
     private Enemy enemyCheeto;
+    private Item xpItem;
     private Character[] walls;
 
     private DateTime timeBegin;
@@ -33,14 +34,17 @@ namespace Fall2020_CSC403_Project {
       bossKoolaid = new Enemy(CreatePosition(picBossKoolAid), CreateCollider(picBossKoolAid, PADDING));
       enemyPoisonPacket = new Enemy(CreatePosition(picEnemyPoisonPacket), CreateCollider(picEnemyPoisonPacket, PADDING));
       enemyCheeto = new Enemy(CreatePosition(picEnemyCheeto), CreateCollider(picEnemyCheeto, PADDING));
+      xpItem = new Item(CreatePosition(picXpItem), CreateCollider(picXpItem, PADDING));
 
       bossKoolaid.Img = picBossKoolAid.BackgroundImage;
       enemyPoisonPacket.Img = picEnemyPoisonPacket.BackgroundImage;
       enemyCheeto.Img = picEnemyCheeto.BackgroundImage;
+      xpItem.Img = picXpItem.BackgroundImage;
 
       bossKoolaid.Color = Color.Red;
       enemyPoisonPacket.Color = Color.Green;
       enemyCheeto.Color = Color.FromArgb(255, 245, 161);
+      xpItem.Color = Color.Orange;
 
       walls = new Character[NUM_WALLS];
       for (int w = 0; w < NUM_WALLS; w++) {
@@ -73,7 +77,11 @@ namespace Fall2020_CSC403_Project {
       string time = span.ToString(@"hh\:mm\:ss");
       lblInGameTime.Text = "Time: " + time.ToString();
     }
-
+    private void lblUpdateInGameLvl(object sender, EventArgs e)
+        {
+            string level = player.level.ToString();
+            lblInGameLvl.Text = "Level: " + level;
+        }
     private void tmrPlayerMove_Tick(object sender, EventArgs e) {
       // move player
       player.Move();
@@ -94,7 +102,10 @@ namespace Fall2020_CSC403_Project {
       if (HitAChar(player, bossKoolaid)) {
         Fight(bossKoolaid);
       }
-
+      else if (HitAChar(player, xpItem))
+            {
+                Pickup(xpItem);
+            }
       // update player's picture box
       picPlayer.Location = new Point((int)player.Position.x, (int)player.Position.y);
     }
@@ -113,7 +124,23 @@ namespace Fall2020_CSC403_Project {
     private bool HitAChar(Character you, Character other) {
       return you.Collider.Intersects(other.Collider);
     }
-
+    private void Pickup(Item item) //Pickup function that will be called when a player picks up an item and this will give the player xp equal to one level
+        {
+            if (item.Color == Color.Orange) //This checks to see if the character has already picked up the item as to not give an infinite means of xp
+            {
+                player.ResetMoveSpeed();
+                player.MoveBack();
+                player.AddXP(100);
+                item.Color = Color.Black;
+                item.Collider.MovePosition(0, 0);
+            }
+            
+            else
+            {
+                player.ResetMoveSpeed();
+                player.MoveBack();
+            }
+        }
     private void Fight(Enemy enemy) {
       
       player.ResetMoveSpeed();
@@ -153,5 +180,9 @@ namespace Fall2020_CSC403_Project {
     private void lblInGameTime_Click(object sender, EventArgs e) {
 
     }
+    private void lblInGameLvl_Click(object sender, EventArgs e)
+        {
+
+        }
   }
 }

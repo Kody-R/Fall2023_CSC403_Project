@@ -70,6 +70,18 @@ namespace Fall2020_CSC403_Project {
 
       lblPlayerHealthFull.Text = player.Health.ToString();
       lblEnemyHealthFull.Text = enemy.Health.ToString();
+      
+      
+           if (player.Health <= 0)
+           {
+               playerDeath();
+           }
+
+           if (enemy.Health <= 0)
+           {
+               player.AddXP(50);    //Calling the AddXP function to give the character more xp and possibly level up
+               enemyDeath(enemy);
+           }
 
     private void btnLightAttack_Click(object sender, EventArgs e) {
       randInt = random.Next(1,4);
