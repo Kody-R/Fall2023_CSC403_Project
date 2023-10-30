@@ -1,8 +1,9 @@
-﻿using Fall2020_CSC403_Project.code;
+using Fall2020_CSC403_Project.code;
 using Fall2020_CSC403_Project.Properties;
 using System;
 using System.Drawing;
 using System.Media;
+using System.Runtime.CompilerServices;
 using System.Windows.Forms;
 
 namespace Fall2020_CSC403_Project {
@@ -69,7 +70,6 @@ namespace Fall2020_CSC403_Project {
 
       lblPlayerHealthFull.Text = player.Health.ToString();
       lblEnemyHealthFull.Text = enemy.Health.ToString();
-    }
 
     private void btnLightAttack_Click(object sender, EventArgs e) {
       randInt = random.Next(1,4);
@@ -136,15 +136,52 @@ namespace Fall2020_CSC403_Project {
 
     private void EnemyDamage(int amount) {
       enemy.AlterHealth(amount);
+            if (player.Health <= 0)
+            {
+                playerDeath();
+            }
+
+            if (enemy.Health <= 0)
+            {
+                player.AddXP(50);    //Calling the AddXP function to give the character more xp and possibly level up
+                enemyDeath(enemy);
+            }
+    }
+ 
+        private void playerDeath()
+        {
+            // Create a transparent panel to cover the form
+            Panel panelDeathScreen = new Panel();
+            panelDeathScreen.Name = "panelDeathScreen";
+            panelDeathScreen.Size = this.ClientSize;
+            panelDeathScreen.BackColor = Color.Transparent;
+            // set the background to death screen and make it cover the window
+            panelDeathScreen.BackgroundImage = Properties.Resources.DeathScreen;
+            panelDeathScreen.BackgroundImageLayout = ImageLayout.Stretch;
+
+            // Make the panel visible to cover the entire form
+            panelDeathScreen.Visible = true;
+
+            // Add the panel to the form's Controls collection
+            Controls.Add(panelDeathScreen);
+        }
+
+        private void enemyDeath(Enemy enemy)
+        {
+            instance = null;
+            enemy.Collider.MovePosition(0,0);
+        }
     }
 
-    private void PlayerDamage(int amount) {
-      player.AlterHealth(amount);
+    private void PlayerDamage(int amount)
+    {
+        player.AlterHealth(amount);
     }
 
-    private void tmrFinalBattle_Tick(object sender, EventArgs e) {
-      picBossBattle.Visible = false;
-      tmrFinalBattle.Enabled = false;
+    private void tmrFinalBattle_Tick(object sender, EventArgs e)
+    {
+        picBossBattle.Visible = false;
+        tmrFinalBattle.Enabled = false;
     }
-  }
+}
 }
