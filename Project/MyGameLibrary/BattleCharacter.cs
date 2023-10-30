@@ -34,9 +34,9 @@ namespace Fall2020_CSC403_Project.code {
     public void levelUp()     //levelUp function that will give the player more health and strength as they level up 
         {
             level += 1;
-            AlterHealth(8);
-            MaxHealth += 8;
-            strength += (2+level);
+            //AlterHealth(8);
+            MaxHealth += 2;
+            //strength += level;
         }
 
     public void AddXP(int amount)   //AddXP function that will be called when a player defeats a character or picks up an xp item
