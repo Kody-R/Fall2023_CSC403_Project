@@ -24,7 +24,10 @@
     /// </summary>
     private void InitializeComponent() {
       this.components = new System.ComponentModel.Container();
-      this.btnAttack = new System.Windows.Forms.Button();
+      this.btnLightAttack = new System.Windows.Forms.Button();
+      this.btnHeavyAttack = new System.Windows.Forms.Button();
+      this.btnHeal = new System.Windows.Forms.Button();
+      this.btnFlee = new System.Windows.Forms.Button();
       this.lblPlayerHealthFull = new System.Windows.Forms.Label();
       this.label1 = new System.Windows.Forms.Label();
       this.label2 = new System.Windows.Forms.Label();
@@ -38,16 +41,49 @@
       ((System.ComponentModel.ISupportInitialize)(this.picPlayer)).BeginInit();
       this.SuspendLayout();
       // 
-      // btnAttack
+      // btnLightAttack
       // 
-      this.btnAttack.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-      this.btnAttack.Location = new System.Drawing.Point(127, 422);
-      this.btnAttack.Name = "btnAttack";
-      this.btnAttack.Size = new System.Drawing.Size(128, 43);
-      this.btnAttack.TabIndex = 2;
-      this.btnAttack.Text = "Attack";
-      this.btnAttack.UseVisualStyleBackColor = true;
-      this.btnAttack.Click += new System.EventHandler(this.btnAttack_Click);
+      this.btnLightAttack.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+      this.btnLightAttack.Location = new System.Drawing.Point(53, 375); 
+      this.btnLightAttack.Name = "btnLightAttack";
+      this.btnLightAttack.Size = new System.Drawing.Size(128, 43);
+      this.btnLightAttack.TabIndex = 2;
+      this.btnLightAttack.Text = "Light Attack";
+      this.btnLightAttack.UseVisualStyleBackColor = true;
+      this.btnLightAttack.Click += new System.EventHandler(this.btnLightAttack_Click);
+      // 
+      // btnHeavyAttack
+      // 
+      this.btnHeavyAttack.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+      this.btnHeavyAttack.Location = new System.Drawing.Point(202, 375); 
+      this.btnHeavyAttack.Name = "btnHeavyAttack";
+      this.btnHeavyAttack.Size = new System.Drawing.Size(128, 43);
+      this.btnHeavyAttack.TabIndex = 2;
+      this.btnHeavyAttack.Text = "Heavy Attack";
+      this.btnHeavyAttack.UseVisualStyleBackColor = true;
+      this.btnHeavyAttack.Click += new System.EventHandler(this.btnHeavyAttack_Click);
+      // 
+      // btnHeal
+      // 
+      this.btnHeal.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+      this.btnHeal.Location = new System.Drawing.Point(127, 425);
+      this.btnHeal.Name = "btnHeal";
+      this.btnHeal.Size = new System.Drawing.Size(128, 43);
+      this.btnHeal.TabIndex = 2;
+      this.btnHeal.Text = "Heal";
+      this.btnHeal.UseVisualStyleBackColor = true;
+      this.btnHeal.Click += new System.EventHandler(this.btnHeal_Click);
+      // 
+      // btnFlee
+      // 
+      this.btnFlee.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+      this.btnFlee.Location = new System.Drawing.Point(127, 475);
+      this.btnFlee.Name = "btnFlee";
+      this.btnFlee.Size = new System.Drawing.Size(128, 43);
+      this.btnFlee.TabIndex = 2;
+      this.btnFlee.Text = "Flee";
+      this.btnFlee.UseVisualStyleBackColor = true;
+      this.btnFlee.Click += new System.EventHandler(this.btnFlee_Click);
       // 
       // lblPlayerHealthFull
       // 
@@ -139,7 +175,10 @@
       this.Controls.Add(this.label2);
       this.Controls.Add(this.lblPlayerHealthFull);
       this.Controls.Add(this.label1);
-      this.Controls.Add(this.btnAttack);
+      this.Controls.Add(this.btnLightAttack);
+      this.Controls.Add(this.btnHeavyAttack);
+      this.Controls.Add(this.btnHeal);
+      this.Controls.Add(this.btnFlee);
       this.Controls.Add(this.picEnemy);
       this.Controls.Add(this.picPlayer);
       this.DoubleBuffered = true;
@@ -153,11 +192,15 @@
 
     }
 
-    #endregion
+        #endregion
 
     private System.Windows.Forms.PictureBox picPlayer;
+    private System.Windows.Forms.PictureBox picXpItem;
     private System.Windows.Forms.PictureBox picEnemy;
-    private System.Windows.Forms.Button btnAttack;
+    private System.Windows.Forms.Button btnLightAttack;
+    private System.Windows.Forms.Button btnHeavyAttack;
+    private System.Windows.Forms.Button btnHeal;
+    private System.Windows.Forms.Button btnFlee;
     private System.Windows.Forms.Label lblPlayerHealthFull;
     private System.Windows.Forms.Label label1;
     private System.Windows.Forms.Label label2;
