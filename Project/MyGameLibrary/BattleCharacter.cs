@@ -23,6 +23,7 @@ namespace Fall2020_CSC403_Project.code {
     }
 
     public void OnAttack(int amount) {
+
       AttackEvent((int)(amount * strength));
     }
 
@@ -33,9 +34,15 @@ namespace Fall2020_CSC403_Project.code {
     public void levelUp()     //levelUp function that will give the player more health and strength as they level up 
         {
             level += 1;
+<<<<<<< HEAD
             AlterHealth(MaxHealth);
             MaxHealth += 4;
             strength += 1;
+=======
+            //AlterHealth(8);
+            MaxHealth += 2;
+            //strength += level;
+>>>>>>> Sprint-1
         }
 
     public void AddXP(int amount)   //AddXP function that will be called when a player defeats a character or picks up an xp item

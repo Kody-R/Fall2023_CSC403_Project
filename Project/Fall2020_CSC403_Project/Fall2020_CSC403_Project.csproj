@@ -88,6 +88,10 @@
     </Compile>
     <None Include="data\xpItem.png" />
     <None Include="data\deathscreen.png" />
+    <None Include="data\death.wav" />
+    <None Include="data\attack.wav" />
+    <None Include="data\GameSoundtrack.wav" />
+    <None Include="data\heavyattack.wav" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

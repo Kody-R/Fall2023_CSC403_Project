@@ -1,7 +1,9 @@
 ﻿using Fall2020_CSC403_Project.code;
+using Fall2020_CSC403_Project.Properties;
 using System;
 using System.Drawing;
 using System.Windows.Forms;
+using System.Media;
 
 namespace Fall2020_CSC403_Project {
   public partial class FrmLevel : Form {
@@ -16,14 +18,18 @@ namespace Fall2020_CSC403_Project {
     private DateTime timeBegin;
     private FrmBattle frmBattle;
 
-    public FrmLevel() {
+
+
+        public FrmLevel() {
       InitializeComponent();
     }
 
     private void FrmLevel_Load(object sender, EventArgs e) {
+      
       const int PADDING = 7;
       const int NUM_WALLS = 13;
 
+      SoundPlayer soundtrack = new SoundPlayer(Resources.GameSoundtrack);
       player = new Player(CreatePosition(picPlayer), CreateCollider(picPlayer, PADDING));
       bossKoolaid = new Enemy(CreatePosition(picBossKoolAid), CreateCollider(picBossKoolAid, PADDING));
       enemyPoisonPacket = new Enemy(CreatePosition(picEnemyPoisonPacket), CreateCollider(picEnemyPoisonPacket, PADDING));
@@ -45,9 +51,10 @@ namespace Fall2020_CSC403_Project {
         PictureBox pic = Controls.Find("picWall" + w.ToString(), true)[0] as PictureBox;
         walls[w] = new Character(CreatePosition(pic), CreateCollider(pic, PADDING));
       }
-
       Game.player = player;
       timeBegin = DateTime.Now;
+      soundtrack.Play();
+    
     }
 
     private Vector2 CreatePosition(PictureBox pic) {
@@ -85,6 +92,7 @@ namespace Fall2020_CSC403_Project {
       // check collision with enemies
       if (HitAChar(player, enemyPoisonPacket)) {
         Fight(enemyPoisonPacket);
+        
       }
       else if (HitAChar(player, enemyCheeto)) {
         Fight(enemyCheeto);
@@ -132,6 +140,7 @@ namespace Fall2020_CSC403_Project {
             }
         }
     private void Fight(Enemy enemy) {
+      
       player.ResetMoveSpeed();
       player.MoveBack();
       frmBattle = FrmBattle.GetInstance(enemy);
