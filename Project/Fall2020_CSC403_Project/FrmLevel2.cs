@@ -22,10 +22,10 @@ namespace Fall2020_CSC403_Project{
 
         public FrmLevel2()
         {
-            InitializeComponent();
+            InitializeComponent_2();
         }
 
-        private void FrmLevel_Load(object sender, EventArgs e)
+        private void FrmLevel2_Load(object sender, EventArgs e)
         {
 
             const int PADDING = 7;
