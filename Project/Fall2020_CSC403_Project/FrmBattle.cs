@@ -109,7 +109,6 @@ namespace Fall2020_CSC403_Project
             {
                 instance = null;
                 Close();
-                soundtrack.Play();
             }
         }
 
@@ -134,7 +133,6 @@ namespace Fall2020_CSC403_Project
             {
                 instance = null;
                 Close();
-                soundtrack.Play();
             }
         }
 
