@@ -11,12 +11,14 @@ namespace Fall2020_CSC403_Project.code {
     public int Health { get; private set; }
     public int MaxHealth { get; private set; }
     private float strength;
+    public int level;
+    public int xp;
 
     public event Action<int> AttackEvent;
 
     public BattleCharacter(Vector2 initPos, Collider collider) : base(initPos, collider) {
-      MaxHealth = 20;
-      strength = 2;
+      MaxHealth = 20 + (2+level);
+      strength = 2 + level;
       Health = MaxHealth;
     }
 
@@ -28,5 +30,22 @@ namespace Fall2020_CSC403_Project.code {
     public void AlterHealth(int amount) {
       Health += amount;
     }
+
+    public void levelUp()     //levelUp function that will give the player more health and strength as they level up 
+        {
+            level += 1;
+            //AlterHealth(8);
+            MaxHealth += 2;
+            //strength += level;
+        }
+
+    public void AddXP(int amount)   //AddXP function that will be called when a player defeats a character or picks up an xp item
+        {
+            xp += amount;
+            if (100 % xp == 0)
+            {
+                levelUp();
+            }
+        }
   }
 }
