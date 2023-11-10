@@ -1,4 +1,7 @@
-﻿namespace Fall2020_CSC403_Project
+﻿using System.Resources;
+using Fall2020_CSC403_Project.Properties;
+
+namespace Fall2020_CSC403_Project
 {
     partial class CharSelect
     {
@@ -32,12 +35,12 @@
             this.btnChar2 = new System.Windows.Forms.Button();
             this.btnChar3 = new System.Windows.Forms.Button();
             this.lblCharDesc = new System.Windows.Forms.Label();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.pictureBox2 = new System.Windows.Forms.PictureBox();
-            this.pictureBox3 = new System.Windows.Forms.PictureBox();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
+            this.pbChar1 = new System.Windows.Forms.PictureBox();
+            this.pbChar2 = new System.Windows.Forms.PictureBox();
+            this.pbChar3 = new System.Windows.Forms.PictureBox();
+            ((System.ComponentModel.ISupportInitialize)(this.pbChar1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbChar2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbChar3)).BeginInit();
             this.SuspendLayout();
             // 
             // btnChar1
@@ -79,50 +82,56 @@
             this.lblCharDesc.TabIndex = 3;
             this.lblCharDesc.Text = "Choose Your Character";
             // 
-            // pictureBox1
+            // pbChar1
             // 
-            this.pictureBox1.BackColor = System.Drawing.SystemColors.ActiveBorder;
-            this.pictureBox1.Location = new System.Drawing.Point(152, 154);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(100, 93);
-            this.pictureBox1.TabIndex = 4;
-            this.pictureBox1.TabStop = false;
+            this.pbChar1.BackColor = System.Drawing.SystemColors.ActiveBorder;
+            this.pbChar1.BackgroundImage = global::Fall2020_CSC403_Project.Properties.Resources.player;
+            this.pbChar1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.pbChar1.Location = new System.Drawing.Point(152, 154);
+            this.pbChar1.Name = "pbChar1";
+            this.pbChar1.Size = new System.Drawing.Size(100, 93);
+            this.pbChar1.TabIndex = 4;
+            this.pbChar1.TabStop = false;
             // 
-            // pictureBox2
+            // pbChar2
             // 
-            this.pictureBox2.BackColor = System.Drawing.SystemColors.ActiveBorder;
-            this.pictureBox2.Location = new System.Drawing.Point(371, 154);
-            this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(100, 93);
-            this.pictureBox2.TabIndex = 5;
-            this.pictureBox2.TabStop = false;
+            this.pbChar2.BackColor = System.Drawing.SystemColors.ActiveBorder;
+            this.pbChar2.BackgroundImage = global::Fall2020_CSC403_Project.Properties.Resources.undead;
+            this.pbChar2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.pbChar2.Location = new System.Drawing.Point(371, 154);
+            this.pbChar2.Name = "pbChar2";
+            this.pbChar2.Size = new System.Drawing.Size(100, 93);
+            this.pbChar2.TabIndex = 5;
+            this.pbChar2.TabStop = false;
             // 
-            // pictureBox3
+            // pbChar3
             // 
-            this.pictureBox3.BackColor = System.Drawing.SystemColors.ActiveBorder;
-            this.pictureBox3.Location = new System.Drawing.Point(573, 154);
-            this.pictureBox3.Name = "pictureBox3";
-            this.pictureBox3.Size = new System.Drawing.Size(100, 93);
-            this.pictureBox3.TabIndex = 6;
-            this.pictureBox3.TabStop = false;
+            this.pbChar3.BackColor = System.Drawing.SystemColors.ActiveBorder;
+            this.pbChar3.BackgroundImage = global::Fall2020_CSC403_Project.Properties.Resources.player;
+            this.pbChar3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.pbChar3.Location = new System.Drawing.Point(573, 154);
+            this.pbChar3.Name = "pbChar3";
+            this.pbChar3.Size = new System.Drawing.Size(100, 93);
+            this.pbChar3.TabIndex = 6;
+            this.pbChar3.TabStop = false;
             // 
             // CharSelect
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.pictureBox3);
-            this.Controls.Add(this.pictureBox2);
-            this.Controls.Add(this.pictureBox1);
+            this.Controls.Add(this.pbChar3);
+            this.Controls.Add(this.pbChar2);
+            this.Controls.Add(this.pbChar1);
             this.Controls.Add(this.lblCharDesc);
             this.Controls.Add(this.btnChar3);
             this.Controls.Add(this.btnChar2);
             this.Controls.Add(this.btnChar1);
             this.Name = "CharSelect";
             this.Text = "CharSelect";
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbChar1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbChar2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbChar3)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -134,8 +143,8 @@
         private System.Windows.Forms.Button btnChar2;
         private System.Windows.Forms.Button btnChar3;
         private System.Windows.Forms.Label lblCharDesc;
-        private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.PictureBox pictureBox2;
-        private System.Windows.Forms.PictureBox pictureBox3;
+        private System.Windows.Forms.PictureBox pbChar1;
+        private System.Windows.Forms.PictureBox pbChar2;
+        private System.Windows.Forms.PictureBox pbChar3;
     }
 }
