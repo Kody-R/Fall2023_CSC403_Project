@@ -84,8 +84,8 @@ namespace Fall2020_CSC403_Project
             // 
             // pbChar1
             // 
-            this.pbChar1.BackColor = System.Drawing.SystemColors.ActiveBorder;
-            this.pbChar1.BackgroundImage = global::Fall2020_CSC403_Project.Properties.Resources.player;
+            this.pbChar1.BackColor = System.Drawing.SystemColors.Control;
+            this.pbChar1.BackgroundImage = global::Fall2020_CSC403_Project.Properties.Resources.knight;
             this.pbChar1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.pbChar1.Location = new System.Drawing.Point(152, 154);
             this.pbChar1.Name = "pbChar1";
@@ -95,8 +95,8 @@ namespace Fall2020_CSC403_Project
             // 
             // pbChar2
             // 
-            this.pbChar2.BackColor = System.Drawing.SystemColors.ActiveBorder;
-            this.pbChar2.BackgroundImage = global::Fall2020_CSC403_Project.Properties.Resources.undead;
+            this.pbChar2.BackColor = System.Drawing.SystemColors.Control;
+            this.pbChar2.BackgroundImage = global::Fall2020_CSC403_Project.Properties.Resources.spider;
             this.pbChar2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.pbChar2.Location = new System.Drawing.Point(371, 154);
             this.pbChar2.Name = "pbChar2";
@@ -106,8 +106,8 @@ namespace Fall2020_CSC403_Project
             // 
             // pbChar3
             // 
-            this.pbChar3.BackColor = System.Drawing.SystemColors.ActiveBorder;
-            this.pbChar3.BackgroundImage = global::Fall2020_CSC403_Project.Properties.Resources.player;
+            this.pbChar3.BackColor = System.Drawing.SystemColors.Control;
+            this.pbChar3.BackgroundImage = global::Fall2020_CSC403_Project.Properties.Resources.undead;
             this.pbChar3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.pbChar3.Location = new System.Drawing.Point(573, 154);
             this.pbChar3.Name = "pbChar3";
