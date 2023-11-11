@@ -14,8 +14,9 @@ namespace Fall2020_CSC403_Project
         private Enemy enemy;
         private Player player;
         SoundPlayer soundtrack = new SoundPlayer(Resources.GameSoundtrack);
-        public Random random = new Random();
-        public int randInt;
+        private Random random = new Random();
+        private int randInt;
+        private int energy = 2;
 
         private FrmBattle()
         {
@@ -112,11 +113,6 @@ namespace Fall2020_CSC403_Project
             }
         }
 
-        private void btnAttack_Click(object sender, EventArgs e)
-        {
-
-            player.OnAttack(-4);
-        }
         private void btnHeavyAttack_Click(object sender, EventArgs e)
         {
             SoundPlayer Heavy_Attack = new SoundPlayer(Resources.heavyattack);
@@ -164,6 +160,11 @@ namespace Fall2020_CSC403_Project
         {
             instance = null;
             Close();
+        }
+
+        private void energyBank()
+        {
+
         }
 
 

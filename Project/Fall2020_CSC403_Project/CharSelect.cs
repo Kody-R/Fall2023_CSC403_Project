@@ -12,6 +12,7 @@ namespace Fall2020_CSC403_Project
 {
     public partial class CharSelect : Form
     {
+
         public CharSelect()
         {
             InitializeComponent();
@@ -19,16 +20,19 @@ namespace Fall2020_CSC403_Project
 
         private void btnChar1_Click(object sender, EventArgs e)
         {
+            //character = "knight";
             Close();
         }
 
         private void btnChar2_Click(object sender, EventArgs e)
         {
+            //character = "spider";
             Close();
         }
 
         private void btnChar3_Click(object sender, EventArgs e)
         {
+            //character = "undead";
             Close();
         }
     }

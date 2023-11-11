@@ -49,7 +49,7 @@ namespace Fall2020_CSC403_Project
             this.btnChar1.Name = "btnChar1";
             this.btnChar1.Size = new System.Drawing.Size(109, 50);
             this.btnChar1.TabIndex = 0;
-            this.btnChar1.Text = "Character 1";
+            this.btnChar1.Text = "Knight";
             this.btnChar1.UseVisualStyleBackColor = true;
             this.btnChar1.Click += new System.EventHandler(this.btnChar1_Click);
             // 
@@ -59,7 +59,7 @@ namespace Fall2020_CSC403_Project
             this.btnChar2.Name = "btnChar2";
             this.btnChar2.Size = new System.Drawing.Size(115, 54);
             this.btnChar2.TabIndex = 1;
-            this.btnChar2.Text = "Character 2";
+            this.btnChar2.Text = "Spider";
             this.btnChar2.UseVisualStyleBackColor = true;
             this.btnChar2.Click += new System.EventHandler(this.btnChar2_Click);
             // 
@@ -69,7 +69,7 @@ namespace Fall2020_CSC403_Project
             this.btnChar3.Name = "btnChar3";
             this.btnChar3.Size = new System.Drawing.Size(131, 52);
             this.btnChar3.TabIndex = 2;
-            this.btnChar3.Text = "Character 3";
+            this.btnChar3.Text = "Undead";
             this.btnChar3.UseVisualStyleBackColor = true;
             this.btnChar3.Click += new System.EventHandler(this.btnChar3_Click);
             // 
