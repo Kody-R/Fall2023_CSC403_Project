@@ -19,12 +19,15 @@ namespace Fall2020_CSC403_Project
 
         private void btnStart_Click(object sender, EventArgs e)
         {
-            Close();
+            CharSelect charSelect = new CharSelect();
+            this.Hide();
+            charSelect.Show();
         }
 
         private void btnControls_Click(object sender, EventArgs e)
         {
-
+            Controller controller = new Controller();
+            controller.Show();
         }
 
         private void btnQuit_Click(object sender, EventArgs e)

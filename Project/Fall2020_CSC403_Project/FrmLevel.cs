@@ -18,16 +18,33 @@ namespace Fall2020_CSC403_Project {
     private DateTime timeBegin;
     private FrmBattle frmBattle;
 
+    int charSelected;
 
 
-    public FrmLevel() {
+
+    public FrmLevel(int choice) {
       InitializeComponent();
+      charSelected = choice;
     }
 
     private void FrmLevel_Load(object sender, EventArgs e) {
       
       const int PADDING = 7;
       const int NUM_WALLS = 13;
+
+      // character select
+      if(charSelected == 1)
+            {
+                picPlayer.BackgroundImage = Properties.Resources.knight;
+            }
+      if(charSelected == 2)
+            {
+                picPlayer.BackgroundImage = Properties.Resources.spider;
+            }
+      if(charSelected == 3)
+            {
+                picPlayer.BackgroundImage = Properties.Resources.undead;
+            }
 
       SoundPlayer soundtrack = new SoundPlayer(Resources.GameSoundtrack);
       player = new Player(CreatePosition(picPlayer), CreateCollider(picPlayer, PADDING));
@@ -171,7 +188,7 @@ namespace Fall2020_CSC403_Project {
 
         case Keys.Space:
             var formPause = new Pause();
-            formPause.Show(this); // if you need non-modal window
+            formPause.Show(this); 
             break;
 
         default:
@@ -376,7 +393,7 @@ namespace Fall2020_CSC403_Project {
 
                 case Keys.Space:
                     var formPause = new Pause();
-                    formPause.Show(this); // if you need non-modal window
+                    formPause.Show(this); 
                     break;
 
                 default:
