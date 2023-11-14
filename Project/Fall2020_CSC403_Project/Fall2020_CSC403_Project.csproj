@@ -162,7 +162,7 @@
     <None Include="Resources\energy.bmp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\energy.png" />
+    <None Include="data\energy.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
