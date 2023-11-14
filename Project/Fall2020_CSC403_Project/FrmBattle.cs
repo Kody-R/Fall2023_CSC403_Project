@@ -95,15 +95,21 @@ namespace Fall2020_CSC403_Project
 
         private void btnLightAttack_Click(object sender, EventArgs e)
         {
-
+            if(lblEnergyCnt.Text == "2")
+            {
+                lblEnergyCnt.Text = "1";
+            }
+            else if(lblEnergyCnt.Text == "1")
+            {
+                lblEnergyCnt.Text = "0";
+            }
             SoundPlayer light_Attack = new SoundPlayer(Resources.attack);
             light_Attack.Play();
+            
             randInt = random.Next(1, 4);
             player.OnAttack(-randInt);
-            if (enemy.Health > 0)
-            {
-                enemy.OnAttack(-2);
-            }
+
+            checkEnergy();
 
             UpdateHealthBars();
             if (player.Health <= 0 || enemy.Health <= 0)
@@ -115,38 +121,45 @@ namespace Fall2020_CSC403_Project
 
         private void btnHeavyAttack_Click(object sender, EventArgs e)
         {
-            SoundPlayer Heavy_Attack = new SoundPlayer(Resources.heavyattack);
-            Heavy_Attack.Play();
-            randInt = random.Next(3, 6);
-            player.OnAttack(-randInt);
-            if (enemy.Health > 0)
+            if (lblEnergyCnt.Text == "2")
             {
-                enemy.OnAttack(-2);
-            }
+                SoundPlayer Heavy_Attack = new SoundPlayer(Resources.heavyattack);
+                Heavy_Attack.Play();
+                randInt = random.Next(3, 6);
+                player.OnAttack(-randInt);
+                if (enemy.Health > 0)
+                {
+                    enemy.OnAttack(-2);
+                }
 
-            UpdateHealthBars();
-            if (player.Health <= 0 || enemy.Health <= 0)
-            {
-                instance = null;
-                Close();
+                UpdateHealthBars();
+                if (player.Health <= 0 || enemy.Health <= 0)
+                {
+                    instance = null;
+                    Close();
+                }
             }
+            
         }
 
         private void btnHeal_Click(object sender, EventArgs e)
         {
-
-            if (enemy.Health > 0)
+            if (lblEnergyCnt.Text == "2")
             {
-                enemy.OnAttack(-2);
+                lblEnergyCnt.Text = "1";
             }
-
-            randInt = random.Next(1, 6);
+            else if (lblEnergyCnt.Text == "1")
+            {
+                lblEnergyCnt.Text = "0";
+            }
+            randInt = random.Next(1, 5);
             while (player.MaxHealth < player.Health + randInt)
             {
                 randInt--;
             }
             player.AlterHealth(randInt);
 
+            checkEnergy();
 
             UpdateHealthBars();
             if (player.Health <= 0 || enemy.Health <= 0)
@@ -162,11 +175,17 @@ namespace Fall2020_CSC403_Project
             Close();
         }
 
-        private void energyBank()
+        private void checkEnergy()
         {
-
+            if (lblEnergyCnt.Text == "0")
+            {
+                if (enemy.Health > 0)
+                {
+                    enemy.OnAttack(-2);
+                }
+                this.lblEnergyCnt.Text = "2";
+            }
         }
-
 
         private void EnemyDamage(int amount)
         {
