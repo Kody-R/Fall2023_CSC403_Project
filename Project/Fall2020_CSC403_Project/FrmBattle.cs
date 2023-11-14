@@ -153,6 +153,7 @@ namespace Fall2020_CSC403_Project
                 lblEnergyCnt.Text = "0";
             }
             randInt = random.Next(1, 5);
+            randInt = randInt * player.level;
             while (player.MaxHealth < player.Health + randInt)
             {
                 randInt--;
