@@ -75,13 +75,13 @@ namespace Fall2020_CSC403_Project {
       string time = span.ToString(@"hh\:mm\:ss");
       lblInGameTime.Text = "Time: " + time.ToString();
     }
-    private void lblUpdateInGameLvl(object sender, EventArgs e)
+    private void tmrUpdateInGameLevel_Tick(object sender, EventArgs e)
         {
-            string level = player.level.ToString();
-            lblInGameLvl.Text = "Level: " + level;
+        int playerLevel = player.level; 
+        lblInGameLevel.Text = "Level: " + playerLevel.ToString();
         }
     private void tmrPlayerMove_Tick(object sender, EventArgs e) {
-      // move player
+
       player.Move();
 
       // check collision with walls
