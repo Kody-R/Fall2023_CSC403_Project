@@ -23,6 +23,7 @@
     /// the contents of this method with the code editor.
     /// </summary>
     private void InitializeComponent() {
+
       this.components = new System.ComponentModel.Container();
       System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmLevel));
       this.lblInGameTime = new System.Windows.Forms.Label();
@@ -356,6 +357,7 @@
       ((System.ComponentModel.ISupportInitialize)(this.picWall11)).EndInit();
       this.ResumeLayout(false);
       this.PerformLayout();
+
 
     }
 
