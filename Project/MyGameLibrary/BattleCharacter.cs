@@ -15,6 +15,7 @@ namespace Fall2020_CSC403_Project.code {
     public int xp;
     public int lives;
     public int previousLevel;
+    public int defeated;
 
     public event Action<int> AttackEvent;
 
@@ -24,6 +25,7 @@ namespace Fall2020_CSC403_Project.code {
       strength = 2 + level;
       Health = MaxHealth;
       lives = 1;
+      defeated = 0;
     }
 
     public void OnAttack(int amount) {
@@ -51,6 +53,11 @@ namespace Fall2020_CSC403_Project.code {
             {
                 levelUp();
             }
+        }
+
+    public void setLevel(int P_level)
+        {
+            level += P_level - 1;
         }
   }
 }

@@ -224,7 +224,8 @@ namespace Fall2020_CSC403_Project
         {
             instance = null;
             enemy.Collider.MovePosition(0, 0);
-            
+
+            player.defeated = player.defeated + 1;
         }
 
 

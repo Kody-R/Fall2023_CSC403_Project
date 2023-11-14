@@ -6,7 +6,19 @@ using System.Windows.Forms;
 using System.Media;
 
 namespace Fall2020_CSC403_Project {
-  public partial class FrmLevel : Form {
+    public class GameState
+    {
+        public int PlayerLevel { get; set; }
+        public DateTime TimeBegin { get; set; }
+
+        public GameState(int playerLevel, DateTime timeBegin)
+        {
+            PlayerLevel = playerLevel;
+            TimeBegin = timeBegin;
+        }
+    }
+
+    public partial class FrmLevel : Form {
     private Player player;
 
     private Enemy enemyPoisonPacket;
@@ -17,6 +29,8 @@ namespace Fall2020_CSC403_Project {
 
     private DateTime timeBegin;
     private FrmBattle frmBattle;
+    private bool transLvl2;
+    private GameState gameState;
 
 
 
@@ -28,6 +42,7 @@ namespace Fall2020_CSC403_Project {
       
       const int PADDING = 7;
       const int NUM_WALLS = 13;
+      gameState = new GameState(1, DateTime.Now);
 
       SoundPlayer soundtrack = new SoundPlayer(Resources.GameSoundtrack);
       player = new Player(CreatePosition(picPlayer), CreateCollider(picPlayer, PADDING));
@@ -51,6 +66,7 @@ namespace Fall2020_CSC403_Project {
         PictureBox pic = Controls.Find("picWall" + w.ToString(), true)[0] as PictureBox;
         walls[w] = new Character(CreatePosition(pic), CreateCollider(pic, PADDING));
       }
+      transLvl2 = false;
       Game.player = player;
       timeBegin = DateTime.Now;
       soundtrack.Play();
@@ -110,15 +126,6 @@ namespace Fall2020_CSC403_Project {
             {
                 Fight(bossKoolaid);
 
-                // Check if the boss is defeated
-                if (bossKoolaid.IsDefeated)
-                {
-                    ResetLevel();
-
-                    // Show the next level form
-                    FrmLevel2 nextLevelForm = new FrmLevel2();
-                    nextLevelForm.Show();
-                }
             }
             else if (HitAChar(player, xpItem))
             {
@@ -126,7 +133,22 @@ namespace Fall2020_CSC403_Project {
             }
       // update player's picture box
       picPlayer.Location = new Point((int)player.Position.x, (int)player.Position.y);
-    }
+            // Check if the boss is defeated
+            if (player.defeated >= 3 && !transLvl2)
+            {
+                gameState.PlayerLevel = player.level;
+                gameState.TimeBegin = DateTime.Now;
+
+                transLvl2 = true;
+                ResetLevel();
+
+                // Show the next level form
+                FrmLevel2 nextLevelForm = new FrmLevel2();
+                nextLevelForm.Show();
+
+                this.Hide();
+            }
+        }
 
     private bool HitAWall(Character c) {
       bool hitAWall = false;
@@ -238,11 +260,15 @@ namespace Fall2020_CSC403_Project {
 
         private DateTime timeBegin;
         private FrmBattle frmBattle;
+        private GameState gameState;
 
 
         public FrmLevel2()
         {
            InitializeComponent_2();
+            this.gameState = gameState;
+            player.setLevel(gameState.PlayerLevel);
+            
         }
 
         private void FrmLevel2_Load(object sender, EventArgs e)
@@ -278,7 +304,7 @@ namespace Fall2020_CSC403_Project {
             soundtrack.Play();
 
             Game.player = player;
-            timeBegin = DateTime.Now;
+            timeBegin = gameState.TimeBegin;
 
         }
 
@@ -304,10 +330,16 @@ namespace Fall2020_CSC403_Project {
             string time = span.ToString(@"hh\:mm\:ss");
             lblInGameTime.Text = "Time: " + time.ToString();
         }
-        private void lblUpdateInGameLvl(object sender, EventArgs e)
+        private void tmrUpdateInGameLevel_Tick(object sender, EventArgs e)
         {
-            string level = player.level.ToString();
-            lblInGameLvl.Text = "Level: " + level;
+            int playerLevel = player.level;
+
+            // Check if the level has changed
+            if (playerLevel != player.previousLevel)
+            {
+                lblInGameLevel.Text = "Level: " + playerLevel.ToString("D2");
+                player.previousLevel = playerLevel;
+            }
         }
         private void tmrPlayerMove_Tick(object sender, EventArgs e)
         {
@@ -421,7 +453,7 @@ namespace Fall2020_CSC403_Project {
         {
 
         }
-        private void lblInGameLvl_Click(object sender, EventArgs e)
+        private void lblInGameLevel_Click(object sender, EventArgs e)
         {
 
         }
