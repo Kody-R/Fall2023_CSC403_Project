@@ -374,6 +374,11 @@ namespace Fall2020_CSC403_Project {
                     player.GoDown();
                     break;
 
+                case Keys.Space:
+                    var formPause = new Pause();
+                    formPause.Show(this); // if you need non-modal window
+                    break;
+
                 default:
                     player.ResetMoveSpeed();
                     break;
