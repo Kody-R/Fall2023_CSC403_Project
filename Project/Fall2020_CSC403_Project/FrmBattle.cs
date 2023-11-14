@@ -80,7 +80,7 @@ namespace Fall2020_CSC403_Project
             lblEnemyHealthFull.Text = enemy.Health.ToString();
 
 
-            if (player.Health <= 0)
+            if (player.Health <= 0 && player.lives <=0)
             {
                 playerDeath();
             }
@@ -104,11 +104,18 @@ namespace Fall2020_CSC403_Project
                 enemy.OnAttack(-2);
             }
 
+            
+            if (player.Health <= 0 && player.lives > 0)
+            {
+                player.AlterHealth(player.MaxHealth);
+                player.lives = player.lives - 1;
+            }
             UpdateHealthBars();
             if (player.Health <= 0 || enemy.Health <= 0)
             {
                 instance = null;
                 Close();
+                soundtrack.Play();
             }
         }
 
@@ -128,11 +135,17 @@ namespace Fall2020_CSC403_Project
                 enemy.OnAttack(-2);
             }
 
+            if (player.Health <= 0 && player.lives > 0)
+            {
+                player.AlterHealth(player.MaxHealth);
+                player.lives = player.lives - 1;
+            }
             UpdateHealthBars();
             if (player.Health <= 0 || enemy.Health <= 0)
             {
                 instance = null;
                 Close();
+                soundtrack.Play();
             }
         }
 
@@ -157,6 +170,7 @@ namespace Fall2020_CSC403_Project
             {
                 instance = null;
                 Close();
+                soundtrack.Play();
             }
         }
 
@@ -164,6 +178,7 @@ namespace Fall2020_CSC403_Project
         {
             instance = null;
             Close();
+            soundtrack.Play();
         }
 
 
@@ -209,6 +224,7 @@ namespace Fall2020_CSC403_Project
         {
             instance = null;
             enemy.Collider.MovePosition(0, 0);
+            
         }
 
 

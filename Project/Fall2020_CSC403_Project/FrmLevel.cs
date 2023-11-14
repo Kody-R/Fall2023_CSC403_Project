@@ -75,12 +75,21 @@ namespace Fall2020_CSC403_Project {
       string time = span.ToString(@"hh\:mm\:ss");
       lblInGameTime.Text = "Time: " + time.ToString();
     }
-    private void tmrUpdateInGameLevel_Tick(object sender, EventArgs e)
-        {
-        int playerLevel = player.level; 
-        lblInGameLevel.Text = "Level: " + playerLevel.ToString();
-        }
-    private void tmrPlayerMove_Tick(object sender, EventArgs e) {
+
+     private void tmrUpdateInGameLevel_Tick(object sender, EventArgs e)
+     {
+         int playerLevel = player.level;
+
+         // Check if the level has changed
+         if (playerLevel != player.previousLevel)
+         {
+             lblInGameLevel.Text = "Level: " + playerLevel.ToString("D2");
+             player.previousLevel = playerLevel;
+         }
+     }
+
+
+        private void tmrPlayerMove_Tick(object sender, EventArgs e) {
 
       player.Move();
 
@@ -97,10 +106,21 @@ namespace Fall2020_CSC403_Project {
       else if (HitAChar(player, enemyCheeto)) {
         Fight(enemyCheeto);
       }
-      if (HitAChar(player, bossKoolaid)) {
-        Fight(bossKoolaid);
-      }
-      else if (HitAChar(player, xpItem))
+            if (HitAChar(player, bossKoolaid))
+            {
+                Fight(bossKoolaid);
+
+                // Check if the boss is defeated
+                if (bossKoolaid.IsDefeated)
+                {
+                    ResetLevel();
+
+                    // Show the next level form
+                    FrmLevel2 nextLevelForm = new FrmLevel2();
+                    nextLevelForm.Show();
+                }
+            }
+            else if (HitAChar(player, xpItem))
             {
                 Pickup(xpItem);
             }
@@ -178,11 +198,33 @@ namespace Fall2020_CSC403_Project {
     private void lblInGameTime_Click(object sender, EventArgs e) {
 
     }
-    private void lblInGameLvl_Click(object sender, EventArgs e)
+    private void lblInGameLevel_Click(object sender, EventArgs e)
         {
 
         }
-  }
+
+       private void ResetLevel()
+       {
+           // Reset player position
+           player.ResetMoveSpeed();
+           player.MoveBack();
+
+           // Clear enemies
+           enemyPoisonPacket.Collider.MovePosition(0, 0);
+           enemyCheeto.Collider.MovePosition(0, 0);
+           bossKoolaid.Collider.MovePosition(0, 0);
+
+           // Reset item state
+           xpItem.Color = Color.Orange;
+           xpItem.Collider.MovePosition(0, 0);
+
+           // Reset walls
+           for (int w = 0; w < walls.Length; w++)
+           {
+               walls[w].Collider.MovePosition(0, 0);
+           }
+       }
+    }
 
     public partial class FrmLevel2 : Form
     {
