@@ -50,6 +50,7 @@
       ((System.ComponentModel.ISupportInitialize)(this.picEnemyCheeto)).BeginInit();
       ((System.ComponentModel.ISupportInitialize)(this.picEnemyPoisonPacket)).BeginInit();
       ((System.ComponentModel.ISupportInitialize)(this.picXpItem)).BeginInit();   
+
       ((System.ComponentModel.ISupportInitialize)(this.picWall3)).BeginInit();
       ((System.ComponentModel.ISupportInitialize)(this.picBossKoolAid)).BeginInit();
       ((System.ComponentModel.ISupportInitialize)(this.picPlayer)).BeginInit();
@@ -334,8 +335,6 @@
       this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
       this.Text = "Explore";
       this.Load += new System.EventHandler(this.FrmLevel_Load);
-      this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FrmLevel_KeyDown);
-      this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.FrmLevel_KeyUp);
       ((System.ComponentModel.ISupportInitialize)(this.picEnemyCheeto)).EndInit();
       ((System.ComponentModel.ISupportInitialize)(this.picXpItem)).EndInit();
       ((System.ComponentModel.ISupportInitialize)(this.picEnemyPoisonPacket)).EndInit();

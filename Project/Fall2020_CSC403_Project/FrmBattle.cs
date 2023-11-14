@@ -4,6 +4,7 @@ using System;
 using System.Drawing;
 using System.Media;
 using System.Runtime.CompilerServices;
+using System.Runtime.Remoting.Channels;
 using System.Windows.Forms;
 
 namespace Fall2020_CSC403_Project
@@ -17,13 +18,39 @@ namespace Fall2020_CSC403_Project
         public Random random = new Random();
         public int randInt;
 
-        private FrmBattle()
+        public FrmBattle(FrmLevel frmLevel)
         {
             InitializeComponent();
             player = Game.player;
             soundtrack.Stop();
             this.FormClosed += (s, args) => { instance = null; enemy.AttackEvent -= PlayerDamage; player.AttackEvent -= EnemyDamage; };
-
+        }
+        private void HandleControllerButtonPressed(int buttonIndex, FrmLevel frmLevel)
+        {
+            object dummySender = null;
+            EventArgs dummyEventArgs = EventArgs.Empty;
+            if (frmLevel != null && instance != null)
+            {
+                if (buttonIndex == 0)
+                {
+                    btnLightAttack_Click(dummySender, dummyEventArgs);
+                }
+                else if (buttonIndex == 1)
+                {
+                    btnHeavyAttack_Click(dummySender, dummyEventArgs);
+                }
+                else if (buttonIndex == 2)
+                {
+                    btnHeal_Click(dummySender, dummyEventArgs);
+                }
+                else if (buttonIndex == 3)
+                {
+                    btnFlee_Click(dummySender, dummyEventArgs);
+                }
+            }
+              
+                
+            
         }
 
         public void Setup()
@@ -55,14 +82,18 @@ namespace Fall2020_CSC403_Project
             tmrFinalBattle.Enabled = true;
         }
 
-        public static FrmBattle GetInstance(Enemy enemy)
+        public static FrmBattle GetInstance(Enemy enemy, FrmLevel frmLevel)
         {
             if (instance == null)
             {
-                instance = new FrmBattle();
-                instance.enemy = enemy;
-                instance.Setup();
-
+                if (frmLevel != null)
+                {
+                    instance = new FrmBattle(frmLevel);
+                    instance.enemy = enemy;
+                    instance.Setup();
+                    frmLevel.ControllerButtonPressed += instance.HandleControllerButtonPressed;
+                }
+                
             }
             return instance;
         }
