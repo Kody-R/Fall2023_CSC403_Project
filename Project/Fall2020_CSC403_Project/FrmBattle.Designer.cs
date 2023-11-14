@@ -180,7 +180,7 @@
             // picEnergy
             // 
             this.picEnergy.BackColor = System.Drawing.Color.Transparent;
-            this.picEnergy.BackgroundImage = global::Fall2020_CSC403_Project.Properties.Resources.Kiss;
+            this.picEnergy.BackgroundImage = global::Fall2020_CSC403_Project.Properties.Resources.energy;
             this.picEnergy.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.picEnergy.Location = new System.Drawing.Point(93, 12);
             this.picEnergy.Name = "picEnergy";
