@@ -184,5 +184,34 @@ namespace Fall2020_CSC403_Project.Properties {
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
+
+        internal static System.Drawing.Bitmap Kiss
+        {
+            get
+            {
+                object obj = ResourceManager.GetObject("Kiss", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+
+        internal static System.Drawing.Bitmap Pringle
+        {
+            get
+            {
+                object obj = ResourceManager.GetObject("Pringle", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+
+        internal static System.Drawing.Bitmap candycorn
+        {
+            get
+            {
+                object obj = ResourceManager.GetObject("candycorn", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+
+
     }
 }

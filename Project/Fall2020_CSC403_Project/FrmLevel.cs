@@ -286,7 +286,7 @@ namespace Fall2020_CSC403_Project {
             player.setLevel(gameState.PlayerLevel);
             evilPringle.Color = Color.Red;
             enemyCandyCorn.Color = Color.Orange;
-            enemyKiss.Color = Color.Silver;
+            enemyKiss.Color = Color.Gray;
             xpItem.Color = Color.Orange;
 
             walls = new Character[NUM_WALLS];
