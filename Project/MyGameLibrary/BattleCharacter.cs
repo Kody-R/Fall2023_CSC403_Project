@@ -32,6 +32,10 @@ namespace Fall2020_CSC403_Project.code {
             {
                 Health = MaxHealth;
             }
+            else
+            {
+                Health += amount;
+            }
     }
 
     public void levelUp()     //levelUp function that will give the player more health and strength as they level up 
