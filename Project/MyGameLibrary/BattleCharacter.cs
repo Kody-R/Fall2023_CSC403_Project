@@ -20,6 +20,8 @@ namespace Fall2020_CSC403_Project.code {
       MaxHealth = 20;
       strength = 2;
       Health = MaxHealth;
+      lives = 2;
+      defeated = 0;
     }
 
     public void OnAttack(int amount) {
