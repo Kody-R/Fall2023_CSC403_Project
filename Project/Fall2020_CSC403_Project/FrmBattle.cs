@@ -257,20 +257,8 @@ namespace Fall2020_CSC403_Project
 
         private void playerDeath()
         {
-            // Create a transparent panel to cover the form
-            Panel panelDeathScreen = new Panel();
-            panelDeathScreen.Name = "panelDeathScreen";
-            panelDeathScreen.Size = this.ClientSize;
-            panelDeathScreen.BackColor = Color.Transparent;
-            // set the background to death screen and make it cover the window
-            panelDeathScreen.BackgroundImage = Properties.Resources.DeathScreen;
-            panelDeathScreen.BackgroundImageLayout = ImageLayout.Stretch;
-
-            // Make the panel visible to cover the entire form
-            panelDeathScreen.Visible = true;
-
-            // Add the panel to the form's Controls collection
-            Controls.Add(panelDeathScreen);
+            DeathScreen deathScreen = new DeathScreen();
+            deathScreen.ShowDialog();
 
             SoundPlayer death = new SoundPlayer(Resources.death);
 
