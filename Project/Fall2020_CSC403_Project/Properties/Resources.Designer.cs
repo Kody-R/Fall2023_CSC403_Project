@@ -61,7 +61,9 @@ namespace Fall2020_CSC403_Project.Properties {
         }
         
         /// <summary>
+
         ///   Looks up a localized resource of type System.IO.UnmanagedMemoryStream similar to System.IO.MemoryStream.
+
         /// </summary>
         internal static System.IO.UnmanagedMemoryStream attack {
             get {
@@ -76,6 +78,15 @@ namespace Fall2020_CSC403_Project.Properties {
             get {
                 object obj = ResourceManager.GetObject("battle_screen", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.IO.MemoryStream.
+        /// </summary>
+        internal static System.IO.UnmanagedMemoryStream death {
+            get {
+                return ResourceManager.GetStream("death", resourceCulture);
             }
         }
         

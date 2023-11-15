@@ -4,6 +4,7 @@ using System;
 using System.Drawing;
 using System.Media;
 using System.Runtime.CompilerServices;
+using System.Runtime.Remoting.Channels;
 using System.Windows.Forms;
 
 namespace Fall2020_CSC403_Project
@@ -14,16 +15,46 @@ namespace Fall2020_CSC403_Project
         private Enemy enemy;
         private Player player;
         SoundPlayer soundtrack = new SoundPlayer(Resources.GameSoundtrack);
+
         private Random random = new Random();
         private int randInt;
         private int energy = 2;
 
-        private FrmBattle()
+
+        public FrmBattle(FrmLevel frmLevel)
         {
             InitializeComponent();
             player = Game.player;
             soundtrack.Stop();
             this.FormClosed += (s, args) => { instance = null; enemy.AttackEvent -= PlayerDamage; player.AttackEvent -= EnemyDamage; };
+
+        }
+        private void HandleControllerButtonPressed(int buttonIndex, FrmLevel frmLevel)
+        {
+            object dummySender = null;
+            EventArgs dummyEventArgs = EventArgs.Empty;
+            if (frmLevel != null && instance != null)
+            {
+                if (buttonIndex == 0)
+                {
+                    btnLightAttack_Click(dummySender, dummyEventArgs);
+                }
+                else if (buttonIndex == 1)
+                {
+                    btnHeavyAttack_Click(dummySender, dummyEventArgs);
+                }
+                else if (buttonIndex == 2)
+                {
+                    btnHeal_Click(dummySender, dummyEventArgs);
+                }
+                else if (buttonIndex == 3)
+                {
+                    btnFlee_Click(dummySender, dummyEventArgs);
+                }
+            }
+              
+                
+            
 
         }
 
@@ -56,13 +87,24 @@ namespace Fall2020_CSC403_Project
             tmrFinalBattle.Enabled = true;
         }
 
-        public static FrmBattle GetInstance(Enemy enemy)
+        public static FrmBattle GetInstance(Enemy enemy, FrmLevel frmLevel)
         {
             if (instance == null)
             {
+
                 instance = new FrmBattle();
                 instance.enemy = enemy;
                 instance.Setup();
+
+
+                if (frmLevel != null)
+                {
+                    instance = new FrmBattle(frmLevel);
+                    instance.enemy = enemy;
+                    instance.Setup();
+                    frmLevel.ControllerButtonPressed += instance.HandleControllerButtonPressed;
+                }
+                
 
             }
             return instance;
@@ -95,6 +137,7 @@ namespace Fall2020_CSC403_Project
 
         private void btnLightAttack_Click(object sender, EventArgs e)
         {
+
             if(lblEnergyCnt.Text == "2")
             {
                 lblEnergyCnt.Text = "1";
@@ -111,11 +154,13 @@ namespace Fall2020_CSC403_Project
 
             checkEnergy();
 
+
             UpdateHealthBars();
             if (player.Health <= 0 || enemy.Health <= 0)
             {
                 instance = null;
                 Close();
+
             }
         }
 
@@ -140,10 +185,12 @@ namespace Fall2020_CSC403_Project
                 }
             }
             
+
         }
 
         private void btnHeal_Click(object sender, EventArgs e)
         {
+
             if (lblEnergyCnt.Text == "2")
             {
                 lblEnergyCnt.Text = "1";
@@ -154,13 +201,16 @@ namespace Fall2020_CSC403_Project
             }
             randInt = random.Next(1, 5);
             randInt = randInt * player.level;
+
             while (player.MaxHealth < player.Health + randInt)
             {
                 randInt--;
             }
             player.AlterHealth(randInt);
 
+
             checkEnergy();
+
 
             UpdateHealthBars();
             if (player.Health <= 0 || enemy.Health <= 0)
@@ -176,6 +226,7 @@ namespace Fall2020_CSC403_Project
             Close();
         }
 
+
         private void checkEnergy()
         {
             if (lblEnergyCnt.Text == "0")
@@ -187,6 +238,7 @@ namespace Fall2020_CSC403_Project
                 this.lblEnergyCnt.Text = "2";
             }
         }
+
 
         private void EnemyDamage(int amount)
         {
@@ -248,5 +300,6 @@ namespace Fall2020_CSC403_Project
         {
 
         }
+
     }
 }

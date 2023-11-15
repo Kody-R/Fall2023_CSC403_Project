@@ -23,6 +23,7 @@
     /// the contents of this method with the code editor.
     /// </summary>
     private void InitializeComponent() {
+
             this.components = new System.ComponentModel.Container();
             this.btnLightAttack = new System.Windows.Forms.Button();
             this.btnHeavyAttack = new System.Windows.Forms.Button();
@@ -230,6 +231,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.picEnergy)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
+
 
     }
 
