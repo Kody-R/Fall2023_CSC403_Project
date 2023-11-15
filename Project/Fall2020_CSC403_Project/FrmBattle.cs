@@ -17,6 +17,7 @@ namespace Fall2020_CSC403_Project
         private Random random = new Random();
         private int randInt;
         private int energy = 2;
+        private int punch;
 
         private FrmBattle()
         {
@@ -80,11 +81,6 @@ namespace Fall2020_CSC403_Project
             lblPlayerHealthFull.Text = player.Health.ToString();
             lblEnemyHealthFull.Text = enemy.Health.ToString();
 
-              if (player.Health <= 0 && player.lives > 0)
-            {
-                player.AlterHealth(player.MaxHealth);
-                player.AlterLives();
-            }
             
             if (player.Health <= 0 && player.lives <=0)
             {
@@ -122,7 +118,9 @@ namespace Fall2020_CSC403_Project
                 player.AlterHealth(player.MaxHealth);
                 player.AlterLives();
             }
+
             UpdateHealthBars();
+
             if (player.Health <= 0 || enemy.Health <= 0)
             {
                 instance = null;
@@ -133,34 +131,32 @@ namespace Fall2020_CSC403_Project
 
         private void btnHeavyAttack_Click(object sender, EventArgs e)
         {
-                SoundPlayer Heavy_Attack = new SoundPlayer(Resources.heavyattack);
-                Heavy_Attack.Play();
+           SoundPlayer Heavy_Attack = new SoundPlayer(Resources.heavyattack);
+           Heavy_Attack.Play();
+
             if (lblEnergyCnt.Text == "2")
             {
-
-                enemy.OnAttack(-2);
+                punch = player.strength;
+                enemy.OnAttack(-punch);
             }
+
+            randInt = random.Next(3, 6);
+            player.OnAttack(-randInt);
+
+            if (player.Health <= 0 && player.lives > 0)
+            {
+                player.AlterHealth(player.MaxHealth);
+                player.AlterLives();
+            }
+
             UpdateHealthBars();
+
             if (player.Health <= 0 || enemy.Health <= 0)
             {
                 instance = null;
                 Close();
                 soundtrack.Play();
 
-       
-                randInt = random.Next(3, 6);
-                player.OnAttack(-randInt);
-                if (enemy.Health > 0)
-                {
-                    enemy.OnAttack(-2);
-                }
-
-                UpdateHealthBars();
-                if (player.Health <= 0 || enemy.Health <= 0)
-                {
-                    instance = null;
-                    Close();
-                }
             }
             
         }
@@ -216,10 +212,6 @@ namespace Fall2020_CSC403_Project
         private void EnemyDamage(int amount)
         {
             enemy.AlterHealth(amount);
-            if (player.Health <= 0)
-            {
-                playerDeath();
-            }
 
             if (enemy.Health <= 0)
             {

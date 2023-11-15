@@ -10,11 +10,13 @@ namespace Fall2020_CSC403_Project {
     {
         public int PlayerLevel { get; set; }
         public DateTime TimeBegin { get; set; }
+        public int CharSelect { get; set; }
 
-        public GameState(int playerLevel, DateTime timeBegin)
+        public GameState(int playerLevel, DateTime timeBegin, int charSelect)
         {
             PlayerLevel = 0;
             TimeBegin = TimeBegin;
+            CharSelect = 0;
         }
     }
 
@@ -32,7 +34,7 @@ namespace Fall2020_CSC403_Project {
     private bool transLvl2;
     private GameState gameState;
 
-    int charSelected;
+    private int charSelected;
 
 
 
@@ -45,7 +47,7 @@ namespace Fall2020_CSC403_Project {
       
       const int PADDING = 7;
       const int NUM_WALLS = 13;
-      gameState = new GameState(1, DateTime.Now);
+      gameState = new GameState(1, DateTime.Now, 0);
 
       // character select
       if(charSelected == 1)
@@ -155,6 +157,7 @@ namespace Fall2020_CSC403_Project {
             {
                 gameState.PlayerLevel = player.level;
                 gameState.TimeBegin = DateTime.Now;
+                gameState.CharSelect = charSelected;
 
                 transLvl2 = true;
                 ResetLevel();
@@ -280,6 +283,7 @@ namespace Fall2020_CSC403_Project {
         private FrmBattle frmBattle;
         private GameState gameState;
         private bool transLvlB;
+        private int charSelected;
        
 
 
@@ -287,6 +291,7 @@ namespace Fall2020_CSC403_Project {
         {
            InitializeComponent_2();
             this.gameState = gameState;
+            charSelected = gameState.CharSelect;
             
         }
 
@@ -296,6 +301,19 @@ namespace Fall2020_CSC403_Project {
             const int PADDING = 7;
             const int NUM_WALLS = 11;
 
+            // character select
+            if (charSelected == 1)
+            {
+                picPlayer.BackgroundImage = Properties.Resources.knight;
+            }
+            if (charSelected == 2)
+            {
+                picPlayer.BackgroundImage = Properties.Resources.spider;
+            }
+            if (charSelected == 3)
+            {
+                picPlayer.BackgroundImage = Properties.Resources.undead;
+            }
 
             player = new Player(CreatePosition(picPlayer), CreateCollider(picPlayer, PADDING));
             evilPringle = new Enemy(CreatePosition(picPringle), CreateCollider(picPringle, PADDING));
@@ -528,19 +546,36 @@ namespace Fall2020_CSC403_Project {
         private DateTime timeBegin;
         private FrmBattle frmBattle;
         private GameState gameState;
+        private int charSelected;
 
 
         public FrmLevel_Boss(GameState gameState)
         {
             InitializeComponent_Boss();
             this.gameState = gameState;
+            charSelected = gameState.CharSelect;
         }
 
+          
+
         private void FrmLevel_Boss_Load(object sender, EventArgs e)
-        {
+            {
 
             const int PADDING = 7;
             const int NUM_WALLS = 9;
+
+            if (charSelected == 1)
+            {
+                picPlayer.BackgroundImage = Properties.Resources.knight;
+            }
+            if (charSelected == 2)
+            {
+                picPlayer.BackgroundImage = Properties.Resources.spider;
+            }
+            if (charSelected == 3)
+            {
+                picPlayer.BackgroundImage = Properties.Resources.undead;
+            }
 
 
             player = new Player(CreatePosition(picPlayer), CreateCollider(picPlayer, PADDING));
@@ -696,4 +731,5 @@ namespace Fall2020_CSC403_Project {
 
         }
     }
+
 }

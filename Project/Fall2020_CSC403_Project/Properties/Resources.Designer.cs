@@ -265,6 +265,7 @@ namespace Fall2020_CSC403_Project.Properties {
             }
         }
 
+        /*
         internal static System.Drawing.Bitmap Kiss
         {
             get
@@ -291,7 +292,7 @@ namespace Fall2020_CSC403_Project.Properties {
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
-
+        */
 
     }
 }
