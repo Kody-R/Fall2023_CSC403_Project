@@ -80,8 +80,13 @@ namespace Fall2020_CSC403_Project
             lblPlayerHealthFull.Text = player.Health.ToString();
             lblEnemyHealthFull.Text = enemy.Health.ToString();
 
-
-            if (player.Health <= 0)
+              if (player.Health <= 0 && player.lives > 0)
+            {
+                player.AlterHealth(player.MaxHealth);
+                player.AlterLives();
+            }
+            
+            if (player.Health <= 0 && player.lives <=0)
             {
                 playerDeath();
             }
@@ -111,20 +116,38 @@ namespace Fall2020_CSC403_Project
 
             checkEnergy();
 
+            
+            if (player.Health <= 0 && player.lives > 0)
+            {
+                player.AlterHealth(player.MaxHealth);
+                player.AlterLives();
+            }
             UpdateHealthBars();
             if (player.Health <= 0 || enemy.Health <= 0)
             {
                 instance = null;
                 Close();
+                soundtrack.Play();
             }
         }
 
         private void btnHeavyAttack_Click(object sender, EventArgs e)
         {
-            if (lblEnergyCnt.Text == "2")
-            {
                 SoundPlayer Heavy_Attack = new SoundPlayer(Resources.heavyattack);
                 Heavy_Attack.Play();
+            if (lblEnergyCnt.Text == "2")
+            {
+
+                enemy.OnAttack(-2);
+            }
+            UpdateHealthBars();
+            if (player.Health <= 0 || enemy.Health <= 0)
+            {
+                instance = null;
+                Close();
+                soundtrack.Play();
+
+       
                 randInt = random.Next(3, 6);
                 player.OnAttack(-randInt);
                 if (enemy.Health > 0)
@@ -167,6 +190,7 @@ namespace Fall2020_CSC403_Project
             {
                 instance = null;
                 Close();
+                soundtrack.Play();
             }
         }
 
@@ -174,6 +198,7 @@ namespace Fall2020_CSC403_Project
         {
             instance = null;
             Close();
+            soundtrack.Play();
         }
 
         private void checkEnergy()
@@ -230,6 +255,7 @@ namespace Fall2020_CSC403_Project
         {
             instance = null;
             enemy.Collider.MovePosition(0, 0);
+            player.defeated = player.defeated + 1;
         }
 
 

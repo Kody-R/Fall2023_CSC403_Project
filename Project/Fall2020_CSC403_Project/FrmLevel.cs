@@ -6,7 +6,19 @@ using System.Windows.Forms;
 using System.Media;
 
 namespace Fall2020_CSC403_Project {
-  public partial class FrmLevel : Form {
+    public class GameState
+    {
+        public int PlayerLevel { get; set; }
+        public DateTime TimeBegin { get; set; }
+
+        public GameState(int playerLevel, DateTime timeBegin)
+        {
+            PlayerLevel = 0;
+            TimeBegin = TimeBegin;
+        }
+    }
+
+    public partial class FrmLevel : Form {
     private Player player;
 
     private Enemy enemyPoisonPacket;
@@ -17,6 +29,8 @@ namespace Fall2020_CSC403_Project {
 
     private DateTime timeBegin;
     private FrmBattle frmBattle;
+    private bool transLvl2;
+    private GameState gameState;
 
     int charSelected;
 
@@ -31,6 +45,7 @@ namespace Fall2020_CSC403_Project {
       
       const int PADDING = 7;
       const int NUM_WALLS = 13;
+      gameState = new GameState(1, DateTime.Now);
 
       // character select
       if(charSelected == 1)
@@ -68,6 +83,7 @@ namespace Fall2020_CSC403_Project {
         PictureBox pic = Controls.Find("picWall" + w.ToString(), true)[0] as PictureBox;
         walls[w] = new Character(CreatePosition(pic), CreateCollider(pic, PADDING));
       }
+      transLvl2 = false;
       Game.player = player;
       timeBegin = DateTime.Now;
       soundtrack.Play();
@@ -92,13 +108,22 @@ namespace Fall2020_CSC403_Project {
       string time = span.ToString(@"hh\:mm\:ss");
       lblInGameTime.Text = "Time: " + time.ToString();
     }
-    private void lblUpdateInGameLvl(object sender, EventArgs e)
-        {
-            string level = player.level.ToString();
-            lblInGameLvl.Text = "Level: " + level;
-        }
-    private void tmrPlayerMove_Tick(object sender, EventArgs e) {
-      // move player
+
+     private void tmrUpdateInGameLevel_Tick(object sender, EventArgs e)
+     {
+         int playerLevel = player.level;
+
+         // Check if the level has changed
+         if (playerLevel != player.previousLevel)
+         {
+             lblInGameLevel.Text = "Level: " + playerLevel.ToString("D2");
+             player.previousLevel = playerLevel;
+         }
+     }
+
+
+        private void tmrPlayerMove_Tick(object sender, EventArgs e) {
+
       player.Move();
 
       // check collision with walls
@@ -114,16 +139,33 @@ namespace Fall2020_CSC403_Project {
       else if (HitAChar(player, enemyCheeto)) {
         Fight(enemyCheeto);
       }
-      if (HitAChar(player, bossKoolaid)) {
-        Fight(bossKoolaid);
-      }
-      else if (HitAChar(player, xpItem))
+            if (HitAChar(player, bossKoolaid))
+            {
+                Fight(bossKoolaid);
+
+            }
+            else if (HitAChar(player, xpItem))
             {
                 Pickup(xpItem);
             }
       // update player's picture box
       picPlayer.Location = new Point((int)player.Position.x, (int)player.Position.y);
-    }
+            // Check if the boss is defeated
+            if ((player.defeated - 1) > 3 && !transLvl2)
+            {
+                gameState.PlayerLevel = player.level;
+                gameState.TimeBegin = DateTime.Now;
+
+                transLvl2 = true;
+                ResetLevel();
+
+                // Show the next level form
+                FrmLevel2 nextLevelForm = new FrmLevel2(gameState);
+                nextLevelForm.Show();
+
+                this.Hide();
+            }
+        }
 
     private bool HitAWall(Character c) {
       bool hitAWall = false;
@@ -162,10 +204,6 @@ namespace Fall2020_CSC403_Project {
       player.MoveBack();
       frmBattle = FrmBattle.GetInstance(enemy);
       frmBattle.Show();
-
-      if (enemy == bossKoolaid) {
-        frmBattle.SetupForBossBattle();
-      }
     }
 
     private void FrmLevel_KeyDown(object sender, KeyEventArgs e) {
@@ -200,29 +238,56 @@ namespace Fall2020_CSC403_Project {
     private void lblInGameTime_Click(object sender, EventArgs e) {
 
     }
-    private void lblInGameLvl_Click(object sender, EventArgs e)
+    private void lblInGameLevel_Click(object sender, EventArgs e)
         {
 
         }
-  }
+
+       private void ResetLevel()
+       {
+           // Reset player position
+           player.ResetMoveSpeed();
+           player.MoveBack();
+
+           // Clear enemies
+           enemyPoisonPacket.Collider.MovePosition(0, 0);
+           enemyCheeto.Collider.MovePosition(0, 0);
+           bossKoolaid.Collider.MovePosition(0, 0);
+
+           // Reset item state
+           xpItem.Color = Color.Orange;
+           xpItem.Collider.MovePosition(0, 0);
+
+           // Reset walls
+           for (int w = 0; w < walls.Length; w++)
+           {
+               walls[w].Collider.MovePosition(0, 0);
+           }
+       }
+    }
 
     public partial class FrmLevel2 : Form
     {
         private Player player;
 
-        private Enemy enemyPoisonPacket;
-        private Enemy bossKoolaid;
-        private Enemy enemyCheeto;
+        private Enemy enemyKiss;
+        private Enemy evilPringle;
+        private Enemy enemyCandyCorn;
         private Item xpItem;
         private Character[] walls;
 
         private DateTime timeBegin;
         private FrmBattle frmBattle;
+        private GameState gameState;
+        private bool transLvlB;
+       
 
 
-        public FrmLevel2()
+        public FrmLevel2(GameState gameState)
         {
            InitializeComponent_2();
+            this.gameState = gameState;
+            
         }
 
         private void FrmLevel2_Load(object sender, EventArgs e)
@@ -231,20 +296,22 @@ namespace Fall2020_CSC403_Project {
             const int PADDING = 7;
             const int NUM_WALLS = 11;
 
+
             player = new Player(CreatePosition(picPlayer), CreateCollider(picPlayer, PADDING));
-            bossKoolaid = new Enemy(CreatePosition(picBossKoolAid), CreateCollider(picBossKoolAid, PADDING));
-            enemyPoisonPacket = new Enemy(CreatePosition(picEnemyPoisonPacket), CreateCollider(picEnemyPoisonPacket, PADDING));
-            enemyCheeto = new Enemy(CreatePosition(picEnemyCheeto), CreateCollider(picEnemyCheeto, PADDING));
+            evilPringle = new Enemy(CreatePosition(picPringle), CreateCollider(picPringle, PADDING));
+            enemyCandyCorn = new Enemy(CreatePosition(picEnemyCandyCorn), CreateCollider(picEnemyCandyCorn, PADDING));
+            enemyKiss = new Enemy(CreatePosition(picEnemyKiss), CreateCollider(picEnemyKiss, PADDING));
             xpItem = new Item(CreatePosition(picXpItem), CreateCollider(picXpItem, PADDING));
 
-            bossKoolaid.Img = picBossKoolAid.BackgroundImage;
-            enemyPoisonPacket.Img = picEnemyPoisonPacket.BackgroundImage;
-            enemyCheeto.Img = picEnemyCheeto.BackgroundImage;
+            evilPringle.Img = picPringle.BackgroundImage;
+            enemyCandyCorn.Img = picEnemyCandyCorn.BackgroundImage;
+            enemyKiss.Img = picEnemyKiss.BackgroundImage;
             xpItem.Img = picXpItem.BackgroundImage;
 
-            bossKoolaid.Color = Color.Red;
-            enemyPoisonPacket.Color = Color.Green;
-            enemyCheeto.Color = Color.FromArgb(255, 245, 161);
+            player.setLevel(gameState.PlayerLevel);
+            evilPringle.Color = Color.Red;
+            enemyCandyCorn.Color = Color.Orange;
+            enemyKiss.Color = Color.Gray;
             xpItem.Color = Color.Orange;
 
             walls = new Character[NUM_WALLS];
@@ -258,7 +325,8 @@ namespace Fall2020_CSC403_Project {
             soundtrack.Play();
 
             Game.player = player;
-            timeBegin = DateTime.Now;
+            timeBegin = gameState.TimeBegin;
+            transLvlB = false;
 
         }
 
@@ -284,10 +352,16 @@ namespace Fall2020_CSC403_Project {
             string time = span.ToString(@"hh\:mm\:ss");
             lblInGameTime.Text = "Time: " + time.ToString();
         }
-        private void lblUpdateInGameLvl(object sender, EventArgs e)
+        private void tmrUpdateInGameLevel_Tick(object sender, EventArgs e)
         {
-            string level = player.level.ToString();
-            lblInGameLvl.Text = "Level: " + level;
+            int playerLevel = player.level;
+
+            // Check if the level has changed
+            if (playerLevel != player.previousLevel)
+            {
+                lblInGameLevel.Text = "Level: " + playerLevel.ToString("D2");
+                player.previousLevel = playerLevel;
+            }
         }
         private void tmrPlayerMove_Tick(object sender, EventArgs e)
         {
@@ -301,18 +375,18 @@ namespace Fall2020_CSC403_Project {
             }
 
             // check collision with enemies
-            if (HitAChar(player, enemyPoisonPacket))
+            if (HitAChar(player, enemyKiss))
             {
-                Fight(enemyPoisonPacket);
+                Fight(enemyKiss);
 
             }
-            else if (HitAChar(player, enemyCheeto))
+            else if (HitAChar(player, enemyCandyCorn))
             {
-                Fight(enemyCheeto);
+                Fight(enemyCandyCorn);
             }
-            if (HitAChar(player, bossKoolaid))
+            if (HitAChar(player, evilPringle))
             {
-                Fight(bossKoolaid);
+                Fight(evilPringle);
             }
             else if (HitAChar(player, xpItem))
             {
@@ -320,6 +394,21 @@ namespace Fall2020_CSC403_Project {
             }
             // update player's picture box
             picPlayer.Location = new Point((int)player.Position.x, (int)player.Position.y);
+
+            if ((player.defeated -1) > 3 && !transLvlB)
+            {
+                gameState.PlayerLevel = player.level;
+                gameState.TimeBegin = DateTime.Now;
+
+                transLvlB = true;
+                ResetLevel();
+
+                // Show the next level form
+                FrmLevel_Boss nextLevelFormB = new FrmLevel_Boss(gameState);
+                nextLevelFormB.Show();
+
+                this.Hide();
+            }
         }
 
         private bool HitAWall(Character c)
@@ -364,11 +453,6 @@ namespace Fall2020_CSC403_Project {
             player.MoveBack();
             frmBattle = FrmBattle.GetInstance(enemy);
             frmBattle.Show();
-
-            if (enemy == bossKoolaid)
-            {
-                frmBattle.SetupForBossBattle();
-            }
         }
 
         private void FrmLevel2_KeyDown(object sender, KeyEventArgs e)
@@ -406,29 +490,50 @@ namespace Fall2020_CSC403_Project {
         {
 
         }
-        private void lblInGameLvl_Click(object sender, EventArgs e)
+        private void lblInGameLevel_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void ResetLevel()
+        {
+            // Reset player position
+            player.ResetMoveSpeed();
+            player.MoveBack();
+
+            // Clear enemies
+            evilPringle.Collider.MovePosition(0, 0);
+            enemyCandyCorn.Collider.MovePosition(0, 0);
+            enemyKiss.Collider.MovePosition(0, 0);
+
+            // Reset item state
+            xpItem.Color = Color.Orange;
+            xpItem.Collider.MovePosition(0, 0);
+
+            // Reset walls
+            for (int w = 0; w < walls.Length; w++)
+            {
+                walls[w].Collider.MovePosition(0, 0);
+            }
         }
     }
 
     public partial class FrmLevel_Boss : Form
     {
         private Player player;
-
-        private Enemy enemyPoisonPacket;
         private Enemy bossKoolaid;
-        private Enemy enemyCheeto;
-        private Item xpItem;
+        
         private Character[] walls;
 
         private DateTime timeBegin;
         private FrmBattle frmBattle;
+        private GameState gameState;
 
 
-        public FrmLevel_Boss()
+        public FrmLevel_Boss(GameState gameState)
         {
             InitializeComponent_Boss();
+            this.gameState = gameState;
         }
 
         private void FrmLevel_Boss_Load(object sender, EventArgs e)
@@ -437,12 +542,12 @@ namespace Fall2020_CSC403_Project {
             const int PADDING = 7;
             const int NUM_WALLS = 9;
 
+
             player = new Player(CreatePosition(picPlayer), CreateCollider(picPlayer, PADDING));
             bossKoolaid = new Enemy(CreatePosition(picBossKoolAid), CreateCollider(picBossKoolAid, PADDING));
-        
+            player.setLevel(gameState.PlayerLevel);
 
             bossKoolaid.Img = picBossKoolAid.BackgroundImage;
-            
 
             bossKoolaid.Color = Color.Red;
            
@@ -484,10 +589,10 @@ namespace Fall2020_CSC403_Project {
             string time = span.ToString(@"hh\:mm\:ss");
             lblInGameTime.Text = "Time: " + time.ToString();
         }
-        private void lblUpdateInGameLvl(object sender, EventArgs e)
+        private void tmrUpdateInGameLevel_Tick(object sender, EventArgs e)
         {
             string level = player.level.ToString();
-            lblInGameLvl.Text = "Level: " + level;
+            lblInGameLevel.Text = "Level: " + level;
         }
         private void tmrPlayerMove_Tick(object sender, EventArgs e)
         {
@@ -586,7 +691,7 @@ namespace Fall2020_CSC403_Project {
         {
 
         }
-        private void lblInGameLvl_Click(object sender, EventArgs e)
+        private void lblInGameLevel_Click(object sender, EventArgs e)
         {
 
         }

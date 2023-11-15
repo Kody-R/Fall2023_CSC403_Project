@@ -30,8 +30,9 @@ namespace Fall2020_CSC403_Project {
       this.components = new System.ComponentModel.Container();
       System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmLevel));
       this.lblInGameTime = new System.Windows.Forms.Label();
-      this.lblInGameLvl = new System.Windows.Forms.Label();
+      this.lblInGameLevel = new System.Windows.Forms.Label();
       this.tmrUpdateInGameTime = new System.Windows.Forms.Timer(this.components);
+      this.tmrUpdateInGameLevel = new System.Windows.Forms.Timer(this.components);
       this.tmrPlayerMove = new System.Windows.Forms.Timer(this.components);
       this.picEnemyCheeto = new System.Windows.Forms.PictureBox();
       this.picXpItem = new System.Windows.Forms.PictureBox();
@@ -89,18 +90,21 @@ namespace Fall2020_CSC403_Project {
       this.tmrUpdateInGameTime.Enabled = true;
       this.tmrUpdateInGameTime.Tick += new System.EventHandler(this.tmrUpdateInGameTime_Tick);
       // 
+      this.tmrUpdateInGameLevel.Enabled = true;
+      this.tmrUpdateInGameLevel.Tick += new System.EventHandler(this.tmrUpdateInGameLevel_Tick);
+      //
       // lblInGameLevel
       // 
-      this.lblInGameLvl.AutoSize = true;
-      this.lblInGameLvl.BackColor = System.Drawing.Color.Black;
-      this.lblInGameLvl.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-      this.lblInGameLvl.ForeColor = System.Drawing.Color.White;
-      this.lblInGameLvl.Location = new System.Drawing.Point(12, 32);
-      this.lblInGameLvl.Name = "lblInGameLvl";
-      this.lblInGameLvl.Size = new System.Drawing.Size(46, 18);
-      this.lblInGameLvl.TabIndex = 2;
-      this.lblInGameLvl.Text = "Level";
-      this.lblInGameLvl.Click += new System.EventHandler(this.lblInGameLvl_Click);
+      this.lblInGameLevel.AutoSize = true;
+      this.lblInGameLevel.BackColor = System.Drawing.Color.Black;
+      this.lblInGameLevel.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+      this.lblInGameLevel.ForeColor = System.Drawing.Color.White;
+      this.lblInGameLevel.Location = new System.Drawing.Point(12, 32);
+      this.lblInGameLevel.Name = "lblInGameLevel";
+      this.lblInGameLevel.Size = new System.Drawing.Size(75, 18);
+      this.lblInGameLevel.TabIndex = 2;
+      this.lblInGameLevel.Text = "Level";
+      this.lblInGameLevel.Click += new System.EventHandler(this.lblInGameLevel_Click);
       // 
       // tmrPlayerMove
       // 
@@ -155,7 +159,7 @@ namespace Fall2020_CSC403_Project {
       // picBossKoolAid
       // 
       this.picBossKoolAid.BackColor = System.Drawing.Color.Transparent;
-      this.picBossKoolAid.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("picBossKoolAid.BackgroundImage")));
+      this.picBossKoolAid.BackgroundImage = global::Fall2020_CSC403_Project.Properties.Resources.enemy_koolaid;
       this.picBossKoolAid.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
       this.picBossKoolAid.Location = new System.Drawing.Point(971, 74);
       this.picBossKoolAid.Name = "picBossKoolAid";
@@ -318,7 +322,7 @@ namespace Fall2020_CSC403_Project {
       this.Controls.Add(this.picWall8);
       this.Controls.Add(this.picWall7);
       this.Controls.Add(this.lblInGameTime);
-      this.Controls.Add(this.lblInGameLvl);
+      this.Controls.Add(this.lblInGameLevel);
       this.Controls.Add(this.picWall1);
       this.Controls.Add(this.picWall0);
       this.Controls.Add(this.picWall10);
@@ -370,8 +374,9 @@ namespace Fall2020_CSC403_Project {
     private System.Windows.Forms.PictureBox picBossKoolAid;
     private System.Windows.Forms.PictureBox picXpItem;
     private System.Windows.Forms.Label lblInGameTime;
-    private System.Windows.Forms.Label lblInGameLvl;
+    private System.Windows.Forms.Label lblInGameLevel;
     private System.Windows.Forms.Timer tmrUpdateInGameTime;
+    private System.Windows.Forms.Timer tmrUpdateInGameLevel;
     private System.Windows.Forms.Timer tmrPlayerMove;
     private System.Windows.Forms.PictureBox picWall3;
     private System.Windows.Forms.PictureBox picEnemyPoisonPacket;
@@ -422,14 +427,15 @@ namespace Fall2020_CSC403_Project {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmLevel));
             this.lblInGameTime = new System.Windows.Forms.Label();
-            this.lblInGameLvl = new System.Windows.Forms.Label();
+            this.lblInGameLevel = new System.Windows.Forms.Label();
             this.tmrUpdateInGameTime = new System.Windows.Forms.Timer(this.components);
+            this.tmrUpdateInGameLevel = new System.Windows.Forms.Timer(this.components);
             this.tmrPlayerMove = new System.Windows.Forms.Timer(this.components);
-            this.picEnemyCheeto = new System.Windows.Forms.PictureBox();
+            this.picEnemyCandyCorn = new System.Windows.Forms.PictureBox();
             this.picXpItem = new System.Windows.Forms.PictureBox();
-            this.picEnemyPoisonPacket = new System.Windows.Forms.PictureBox();
+            this.picEnemyKiss = new System.Windows.Forms.PictureBox();
             this.picWall3 = new System.Windows.Forms.PictureBox();
-            this.picBossKoolAid = new System.Windows.Forms.PictureBox();
+            this.picPringle = new System.Windows.Forms.PictureBox();
             this.picPlayer = new System.Windows.Forms.PictureBox();
             this.picWall5 = new System.Windows.Forms.PictureBox();
             this.picWall4 = new System.Windows.Forms.PictureBox();
@@ -441,11 +447,11 @@ namespace Fall2020_CSC403_Project {
             this.picWall8 = new System.Windows.Forms.PictureBox();
             this.picWall1 = new System.Windows.Forms.PictureBox();
             this.picWall2 = new System.Windows.Forms.PictureBox();
-            ((System.ComponentModel.ISupportInitialize)(this.picEnemyCheeto)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.picEnemyPoisonPacket)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picEnemyCandyCorn)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picEnemyKiss)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picXpItem)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picWall3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.picBossKoolAid)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picPringle)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picPlayer)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picWall5)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picWall4)).BeginInit();
@@ -477,18 +483,22 @@ namespace Fall2020_CSC403_Project {
             this.tmrUpdateInGameTime.Enabled = true;
             this.tmrUpdateInGameTime.Tick += new System.EventHandler(this.tmrUpdateInGameTime_Tick);
             // 
+            // 
+            this.tmrUpdateInGameLevel.Enabled = true;
+            this.tmrUpdateInGameLevel.Tick += new System.EventHandler(this.tmrUpdateInGameLevel_Tick);
+            //
             // lblInGameLevel
             // 
-            this.lblInGameLvl.AutoSize = true;
-            this.lblInGameLvl.BackColor = System.Drawing.Color.Black;
-            this.lblInGameLvl.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblInGameLvl.ForeColor = System.Drawing.Color.White;
-            this.lblInGameLvl.Location = new System.Drawing.Point(12, 32);
-            this.lblInGameLvl.Name = "lblInGameLvl";
-            this.lblInGameLvl.Size = new System.Drawing.Size(46, 18);
-            this.lblInGameLvl.TabIndex = 2;
-            this.lblInGameLvl.Text = "Level";
-            this.lblInGameLvl.Click += new System.EventHandler(this.lblInGameLvl_Click);
+            this.lblInGameLevel.AutoSize = true;
+            this.lblInGameLevel.BackColor = System.Drawing.Color.Black;
+            this.lblInGameLevel.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblInGameLevel.ForeColor = System.Drawing.Color.White;
+            this.lblInGameLevel.Location = new System.Drawing.Point(12, 32);
+            this.lblInGameLevel.Name = "lblInGameLvl";
+            this.lblInGameLevel.Size = new System.Drawing.Size(75, 18);
+            this.lblInGameLevel.TabIndex = 2;
+            this.lblInGameLevel.Text = "Level";
+            this.lblInGameLevel.Click += new System.EventHandler(this.lblInGameLevel_Click);
             // 
             // tmrPlayerMove
             // 
@@ -496,16 +506,16 @@ namespace Fall2020_CSC403_Project {
             this.tmrPlayerMove.Interval = 10;
             this.tmrPlayerMove.Tick += new System.EventHandler(this.tmrPlayerMove_Tick);
             // 
-            // picEnemyCheeto
-            // 
-            this.picEnemyCheeto.BackColor = System.Drawing.Color.Transparent;
-            this.picEnemyCheeto.BackgroundImage = global::Fall2020_CSC403_Project.Properties.Resources.enemy_cheetos;
-            this.picEnemyCheeto.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.picEnemyCheeto.Location = new System.Drawing.Point(838, 540);
-            this.picEnemyCheeto.Name = "picEnemyCheeto";
-            this.picEnemyCheeto.Size = new System.Drawing.Size(64, 107);
-            this.picEnemyCheeto.TabIndex = 5;
-            this.picEnemyCheeto.TabStop = false;
+            // picEnemyCandyCorn
+       
+            this.picEnemyCandyCorn.BackColor = System.Drawing.Color.Transparent;
+            this.picEnemyCandyCorn.BackgroundImage = global::Fall2020_CSC403_Project.Properties.Resources.candycorn;
+            this.picEnemyCandyCorn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.picEnemyCandyCorn.Location = new System.Drawing.Point(838, 540);
+            this.picEnemyCandyCorn.Name = "picEnemyCandyCorn";
+            this.picEnemyCandyCorn.Size = new System.Drawing.Size(64, 107);
+            this.picEnemyCandyCorn.TabIndex = 5;
+            this.picEnemyCandyCorn.TabStop = false;
             // 
             // picXpItem
             // 
@@ -518,16 +528,16 @@ namespace Fall2020_CSC403_Project {
             this.picXpItem.TabIndex = 5;
             this.picXpItem.TabStop = false;
             // 
-            // picEnemyPoisonPacket
+            // picEnemyKiss
             // 
-            this.picEnemyPoisonPacket.BackColor = System.Drawing.Color.Transparent;
-            this.picEnemyPoisonPacket.BackgroundImage = global::Fall2020_CSC403_Project.Properties.Resources.enemy_poisonpacket;
-            this.picEnemyPoisonPacket.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.picEnemyPoisonPacket.Location = new System.Drawing.Point(110, 98);
-            this.picEnemyPoisonPacket.Name = "picEnemyPoisonPacket";
-            this.picEnemyPoisonPacket.Size = new System.Drawing.Size(63, 96);
-            this.picEnemyPoisonPacket.TabIndex = 4;
-            this.picEnemyPoisonPacket.TabStop = false;
+            this.picEnemyKiss.BackColor = System.Drawing.Color.Transparent;
+            this.picEnemyKiss.BackgroundImage = global::Fall2020_CSC403_Project.Properties.Resources.Kiss;
+            this.picEnemyKiss.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.picEnemyKiss.Location = new System.Drawing.Point(110, 98);
+            this.picEnemyKiss.Name = "picEnemyKiss";
+            this.picEnemyKiss.Size = new System.Drawing.Size(63, 96);
+            this.picEnemyKiss.TabIndex = 4;
+            this.picEnemyKiss.TabStop = false;
             // 
             // picWall3
             // 
@@ -540,17 +550,17 @@ namespace Fall2020_CSC403_Project {
             this.picWall3.TabIndex = 3;
             this.picWall3.TabStop = false;
             // 
-            // picBossKoolAid
+            // picPringle
             // 
-            this.picBossKoolAid.BackColor = System.Drawing.Color.Transparent;
-            this.picBossKoolAid.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("picBossKoolAid.BackgroundImage")));
-            this.picBossKoolAid.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.picBossKoolAid.Location = new System.Drawing.Point(971, 74);
-            this.picBossKoolAid.Name = "picBossKoolAid";
-            this.picBossKoolAid.Size = new System.Drawing.Size(193, 194);
-            this.picBossKoolAid.TabIndex = 1;
-            this.picBossKoolAid.TabStop = false;
-            // 
+            this.picPringle.BackColor = System.Drawing.Color.Transparent;
+            this.picPringle.BackgroundImage = global::Fall2020_CSC403_Project.Properties.Resources.Pringle;
+            this.picPringle.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.picPringle.Location = new System.Drawing.Point(971, 74);
+            this.picPringle.Name = "picPringle";
+            this.picPringle.Size = new System.Drawing.Size(193, 194);
+            this.picPringle.TabIndex = 1;
+            this.picPringle.TabStop = false;
+            //      
             // picPlayer
             // 
             this.picPlayer.BackColor = System.Drawing.Color.Transparent;
@@ -686,7 +696,7 @@ namespace Fall2020_CSC403_Project {
             this.Controls.Add(this.picWall8);
             this.Controls.Add(this.picWall7);
             this.Controls.Add(this.lblInGameTime);
-            this.Controls.Add(this.lblInGameLvl);
+            this.Controls.Add(this.lblInGameLevel);
             this.Controls.Add(this.picWall1);
             this.Controls.Add(this.picWall0);
             this.Controls.Add(this.picWall10);
@@ -694,11 +704,11 @@ namespace Fall2020_CSC403_Project {
             this.Controls.Add(this.picWall6);
             this.Controls.Add(this.picWall4);
             this.Controls.Add(this.picWall5);
-            this.Controls.Add(this.picEnemyCheeto);
+            this.Controls.Add(this.picEnemyCandyCorn);
             this.Controls.Add(this.picXpItem);
-            this.Controls.Add(this.picEnemyPoisonPacket);
+            this.Controls.Add(this.picEnemyKiss);
             this.Controls.Add(this.picWall3);
-            this.Controls.Add(this.picBossKoolAid);
+            this.Controls.Add(this.picPringle);
             this.Controls.Add(this.picPlayer);
             this.DoubleBuffered = true;
             this.Name = "FrmLevel_2";
@@ -707,11 +717,11 @@ namespace Fall2020_CSC403_Project {
             this.Load += new System.EventHandler(this.FrmLevel2_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FrmLevel2_KeyDown);
             this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.FrmLevel2_KeyUp);
-            ((System.ComponentModel.ISupportInitialize)(this.picEnemyCheeto)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picEnemyCandyCorn)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picXpItem)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.picEnemyPoisonPacket)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picEnemyKiss)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picWall3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.picBossKoolAid)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picPringle)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picPlayer)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picWall5)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picWall4)).EndInit();
@@ -731,15 +741,16 @@ namespace Fall2020_CSC403_Project {
         #endregion
 
         private System.Windows.Forms.PictureBox picPlayer;
-        private System.Windows.Forms.PictureBox picBossKoolAid;
+        private System.Windows.Forms.PictureBox picPringle;
         private System.Windows.Forms.PictureBox picXpItem;
         private System.Windows.Forms.Label lblInGameTime;
-        private System.Windows.Forms.Label lblInGameLvl;
+        private System.Windows.Forms.Label lblInGameLevel;
         private System.Windows.Forms.Timer tmrUpdateInGameTime;
+        private System.Windows.Forms.Timer tmrUpdateInGameLevel;
         private System.Windows.Forms.Timer tmrPlayerMove;
         private System.Windows.Forms.PictureBox picWall3;
-        private System.Windows.Forms.PictureBox picEnemyPoisonPacket;
-        private System.Windows.Forms.PictureBox picEnemyCheeto;
+        private System.Windows.Forms.PictureBox picEnemyKiss;
+        private System.Windows.Forms.PictureBox picEnemyCandyCorn;
         private System.Windows.Forms.PictureBox picWall5;
         private System.Windows.Forms.PictureBox picWall4;
         private System.Windows.Forms.PictureBox picWall6;
@@ -783,8 +794,9 @@ namespace Fall2020_CSC403_Project {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmLevel));
             this.lblInGameTime = new System.Windows.Forms.Label();
-            this.lblInGameLvl = new System.Windows.Forms.Label();
+            this.lblInGameLevel = new System.Windows.Forms.Label();
             this.tmrUpdateInGameTime = new System.Windows.Forms.Timer(this.components);
+            this.tmrUpdateInGameLevel = new System.Windows.Forms.Timer(this.components);
             this.tmrPlayerMove = new System.Windows.Forms.Timer(this.components);
             this.picWall3 = new System.Windows.Forms.PictureBox();
             this.picBossKoolAid = new System.Windows.Forms.PictureBox();
@@ -828,18 +840,21 @@ namespace Fall2020_CSC403_Project {
             this.tmrUpdateInGameTime.Enabled = true;
             this.tmrUpdateInGameTime.Tick += new System.EventHandler(this.tmrUpdateInGameTime_Tick);
             // 
+            this.tmrUpdateInGameLevel.Enabled = true;
+            this.tmrUpdateInGameLevel.Tick += new System.EventHandler(this.tmrUpdateInGameLevel_Tick);
+            //
             // lblInGameLevel
             // 
-            this.lblInGameLvl.AutoSize = true;
-            this.lblInGameLvl.BackColor = System.Drawing.Color.Black;
-            this.lblInGameLvl.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblInGameLvl.ForeColor = System.Drawing.Color.White;
-            this.lblInGameLvl.Location = new System.Drawing.Point(12, 32);
-            this.lblInGameLvl.Name = "lblInGameLvl";
-            this.lblInGameLvl.Size = new System.Drawing.Size(46, 18);
-            this.lblInGameLvl.TabIndex = 2;
-            this.lblInGameLvl.Text = "Level";
-            this.lblInGameLvl.Click += new System.EventHandler(this.lblInGameLvl_Click);
+            this.lblInGameLevel.AutoSize = true;
+            this.lblInGameLevel.BackColor = System.Drawing.Color.Black;
+            this.lblInGameLevel.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblInGameLevel.ForeColor = System.Drawing.Color.White;
+            this.lblInGameLevel.Location = new System.Drawing.Point(12, 32);
+            this.lblInGameLevel.Name = "lblInGameLvl";
+            this.lblInGameLevel.Size = new System.Drawing.Size(75, 18);
+            this.lblInGameLevel.TabIndex = 2;
+            this.lblInGameLevel.Text = "Level";
+            this.lblInGameLevel.Click += new System.EventHandler(this.lblInGameLevel_Click);
             // 
             // tmrPlayerMove
             // 
@@ -862,7 +877,7 @@ namespace Fall2020_CSC403_Project {
             // picBossKoolAid
             // 
             this.picBossKoolAid.BackColor = System.Drawing.Color.Transparent;
-            this.picBossKoolAid.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("picBossKoolAid.BackgroundImage")));
+            this.picBossKoolAid.BackgroundImage = global::Fall2020_CSC403_Project.Properties.Resources.enemy_koolaid;
             this.picBossKoolAid.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.picBossKoolAid.Location = new System.Drawing.Point(500, 100);
             this.picBossKoolAid.Name = "picBossKoolAid";
@@ -982,7 +997,7 @@ namespace Fall2020_CSC403_Project {
             this.Controls.Add(this.picWall8);
             this.Controls.Add(this.picWall7);
             this.Controls.Add(this.lblInGameTime);
-            this.Controls.Add(this.lblInGameLvl);
+            this.Controls.Add(this.lblInGameLevel);
             this.Controls.Add(this.picWall1);
             this.Controls.Add(this.picWall0);
             this.Controls.Add(this.picWall6);
@@ -1019,8 +1034,9 @@ namespace Fall2020_CSC403_Project {
         private System.Windows.Forms.PictureBox picPlayer;
         private System.Windows.Forms.PictureBox picBossKoolAid;
         private System.Windows.Forms.Label lblInGameTime;
-        private System.Windows.Forms.Label lblInGameLvl;
+        private System.Windows.Forms.Label lblInGameLevel;
         private System.Windows.Forms.Timer tmrUpdateInGameTime;
+        private System.Windows.Forms.Timer tmrUpdateInGameLevel;
         private System.Windows.Forms.Timer tmrPlayerMove;
         private System.Windows.Forms.PictureBox picWall3;
         private System.Windows.Forms.PictureBox picWall5;

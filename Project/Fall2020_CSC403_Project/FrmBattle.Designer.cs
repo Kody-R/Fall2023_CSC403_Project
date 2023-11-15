@@ -236,7 +236,6 @@
         #endregion
 
     private System.Windows.Forms.PictureBox picPlayer;
-    private System.Windows.Forms.PictureBox picXpItem;
     private System.Windows.Forms.PictureBox picEnemy;
     private System.Windows.Forms.Button btnLightAttack;
     private System.Windows.Forms.Button btnHeavyAttack;
