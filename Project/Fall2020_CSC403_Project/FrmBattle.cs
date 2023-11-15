@@ -15,8 +15,11 @@ namespace Fall2020_CSC403_Project
         private Enemy enemy;
         private Player player;
         SoundPlayer soundtrack = new SoundPlayer(Resources.GameSoundtrack);
-        public Random random = new Random();
-        public int randInt;
+
+        private Random random = new Random();
+        private int randInt;
+        private int energy = 2;
+
 
         public FrmBattle(FrmLevel frmLevel)
         {
@@ -24,6 +27,7 @@ namespace Fall2020_CSC403_Project
             player = Game.player;
             soundtrack.Stop();
             this.FormClosed += (s, args) => { instance = null; enemy.AttackEvent -= PlayerDamage; player.AttackEvent -= EnemyDamage; };
+
         }
         private void HandleControllerButtonPressed(int buttonIndex, FrmLevel frmLevel)
         {
@@ -51,6 +55,7 @@ namespace Fall2020_CSC403_Project
               
                 
             
+
         }
 
         public void Setup()
@@ -86,6 +91,12 @@ namespace Fall2020_CSC403_Project
         {
             if (instance == null)
             {
+
+                instance = new FrmBattle();
+                instance.enemy = enemy;
+                instance.Setup();
+
+
                 if (frmLevel != null)
                 {
                     instance = new FrmBattle(frmLevel);
@@ -94,6 +105,7 @@ namespace Fall2020_CSC403_Project
                     frmLevel.ControllerButtonPressed += instance.HandleControllerButtonPressed;
                 }
                 
+
             }
             return instance;
         }
@@ -126,63 +138,78 @@ namespace Fall2020_CSC403_Project
         private void btnLightAttack_Click(object sender, EventArgs e)
         {
 
+            if(lblEnergyCnt.Text == "2")
+            {
+                lblEnergyCnt.Text = "1";
+            }
+            else if(lblEnergyCnt.Text == "1")
+            {
+                lblEnergyCnt.Text = "0";
+            }
             SoundPlayer light_Attack = new SoundPlayer(Resources.attack);
             light_Attack.Play();
+            
             randInt = random.Next(1, 4);
             player.OnAttack(-randInt);
-            if (enemy.Health > 0)
-            {
-                enemy.OnAttack(-2);
-            }
+
+            checkEnergy();
+
 
             UpdateHealthBars();
             if (player.Health <= 0 || enemy.Health <= 0)
             {
                 instance = null;
                 Close();
-                soundtrack.Play();
+
             }
         }
 
-        private void btnAttack_Click(object sender, EventArgs e)
-        {
-
-            player.OnAttack(-4);
-        }
         private void btnHeavyAttack_Click(object sender, EventArgs e)
         {
-            SoundPlayer Heavy_Attack = new SoundPlayer(Resources.heavyattack);
-            Heavy_Attack.Play();
-            randInt = random.Next(3, 6);
-            player.OnAttack(-randInt);
-            if (enemy.Health > 0)
+            if (lblEnergyCnt.Text == "2")
             {
-                enemy.OnAttack(-2);
-            }
+                SoundPlayer Heavy_Attack = new SoundPlayer(Resources.heavyattack);
+                Heavy_Attack.Play();
+                randInt = random.Next(3, 6);
+                player.OnAttack(-randInt);
+                if (enemy.Health > 0)
+                {
+                    enemy.OnAttack(-2);
+                }
 
-            UpdateHealthBars();
-            if (player.Health <= 0 || enemy.Health <= 0)
-            {
-                instance = null;
-                Close();
-                soundtrack.Play();
+                UpdateHealthBars();
+                if (player.Health <= 0 || enemy.Health <= 0)
+                {
+                    instance = null;
+                    Close();
+                }
             }
+            
+
         }
 
         private void btnHeal_Click(object sender, EventArgs e)
         {
 
-            if (enemy.Health > 0)
+            if (lblEnergyCnt.Text == "2")
             {
-                enemy.OnAttack(-2);
+                lblEnergyCnt.Text = "1";
             }
+            else if (lblEnergyCnt.Text == "1")
+            {
+                lblEnergyCnt.Text = "0";
+            }
+            randInt = random.Next(1, 5);
+            randInt = randInt * player.level;
 
-            randInt = random.Next(1, 6);
             while (player.MaxHealth < player.Health + randInt)
             {
                 randInt--;
             }
             player.AlterHealth(randInt);
+
+
+            checkEnergy();
 
 
             UpdateHealthBars();
@@ -197,6 +224,19 @@ namespace Fall2020_CSC403_Project
         {
             instance = null;
             Close();
+        }
+
+
+        private void checkEnergy()
+        {
+            if (lblEnergyCnt.Text == "0")
+            {
+                if (enemy.Health > 0)
+                {
+                    enemy.OnAttack(-2);
+                }
+                this.lblEnergyCnt.Text = "2";
+            }
         }
 
 
@@ -255,5 +295,11 @@ namespace Fall2020_CSC403_Project
             picBossBattle.Visible = false;
             tmrFinalBattle.Enabled = false;
         }
+
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+
+        }
+
     }
 }
