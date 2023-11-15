@@ -108,7 +108,7 @@ namespace Fall2020_CSC403_Project
             if (player.Health <= 0 && player.lives > 0)
             {
                 player.AlterHealth(player.MaxHealth);
-                player.lives = player.lives - 1;
+                player.AlterLives();
             }
             UpdateHealthBars();
             if (player.Health <= 0 || enemy.Health <= 0)
@@ -224,7 +224,6 @@ namespace Fall2020_CSC403_Project
         {
             instance = null;
             enemy.Collider.MovePosition(0, 0);
-
             player.defeated = player.defeated + 1;
         }
 

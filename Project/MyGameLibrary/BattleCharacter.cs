@@ -24,7 +24,7 @@ namespace Fall2020_CSC403_Project.code {
       MaxHealth = 20 + (2+level);
       strength = 2 + level;
       Health = MaxHealth;
-      lives = 1;
+      lives = 2;
       defeated = 0;
     }
 
@@ -37,7 +37,12 @@ namespace Fall2020_CSC403_Project.code {
       Health += amount;
     }
 
-    public void levelUp()     //levelUp function that will give the player more health and strength as they level up 
+    public void AlterLives()
+    {
+        lives -= 1;
+    }
+
+        public void levelUp()     //levelUp function that will give the player more health and strength as they level up 
         {
             previousLevel = level;
             level += 1;

@@ -155,7 +155,7 @@
       // picBossKoolAid
       // 
       this.picBossKoolAid.BackColor = System.Drawing.Color.Transparent;
-            this.picBossKoolAid.BackgroundImage = global::Fall2020_CSC403_Project.Properties.Resources.enemy_koolaid;
+      this.picBossKoolAid.BackgroundImage = global::Fall2020_CSC403_Project.Properties.Resources.enemy_koolaid;
       this.picBossKoolAid.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
       this.picBossKoolAid.Location = new System.Drawing.Point(971, 74);
       this.picBossKoolAid.Name = "picBossKoolAid";
@@ -788,8 +788,9 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmLevel));
             this.lblInGameTime = new System.Windows.Forms.Label();
-            this.lblInGameLvl = new System.Windows.Forms.Label();
+            this.lblInGameLevel = new System.Windows.Forms.Label();
             this.tmrUpdateInGameTime = new System.Windows.Forms.Timer(this.components);
+            this.tmrUpdateInGameLevel = new System.Windows.Forms.Timer(this.components);
             this.tmrPlayerMove = new System.Windows.Forms.Timer(this.components);
             this.picWall3 = new System.Windows.Forms.PictureBox();
             this.picBossKoolAid = new System.Windows.Forms.PictureBox();
@@ -833,18 +834,21 @@
             this.tmrUpdateInGameTime.Enabled = true;
             this.tmrUpdateInGameTime.Tick += new System.EventHandler(this.tmrUpdateInGameTime_Tick);
             // 
+            this.tmrUpdateInGameLevel.Enabled = true;
+            this.tmrUpdateInGameLevel.Tick += new System.EventHandler(this.tmrUpdateInGameLevel_Tick);
+            //
             // lblInGameLevel
             // 
-            this.lblInGameLvl.AutoSize = true;
-            this.lblInGameLvl.BackColor = System.Drawing.Color.Black;
-            this.lblInGameLvl.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblInGameLvl.ForeColor = System.Drawing.Color.White;
-            this.lblInGameLvl.Location = new System.Drawing.Point(12, 32);
-            this.lblInGameLvl.Name = "lblInGameLvl";
-            this.lblInGameLvl.Size = new System.Drawing.Size(46, 18);
-            this.lblInGameLvl.TabIndex = 2;
-            this.lblInGameLvl.Text = "Level";
-            this.lblInGameLvl.Click += new System.EventHandler(this.lblInGameLvl_Click);
+            this.lblInGameLevel.AutoSize = true;
+            this.lblInGameLevel.BackColor = System.Drawing.Color.Black;
+            this.lblInGameLevel.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblInGameLevel.ForeColor = System.Drawing.Color.White;
+            this.lblInGameLevel.Location = new System.Drawing.Point(12, 32);
+            this.lblInGameLevel.Name = "lblInGameLvl";
+            this.lblInGameLevel.Size = new System.Drawing.Size(75, 18);
+            this.lblInGameLevel.TabIndex = 2;
+            this.lblInGameLevel.Text = "Level";
+            this.lblInGameLevel.Click += new System.EventHandler(this.lblInGameLevel_Click);
             // 
             // tmrPlayerMove
             // 
@@ -867,7 +871,7 @@
             // picBossKoolAid
             // 
             this.picBossKoolAid.BackColor = System.Drawing.Color.Transparent;
-            this.picBossKoolAid.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("picBossKoolAid.BackgroundImage")));
+            this.picBossKoolAid.BackgroundImage = global::Fall2020_CSC403_Project.Properties.Resources.enemy_koolaid;
             this.picBossKoolAid.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.picBossKoolAid.Location = new System.Drawing.Point(500, 100);
             this.picBossKoolAid.Name = "picBossKoolAid";
@@ -987,7 +991,7 @@
             this.Controls.Add(this.picWall8);
             this.Controls.Add(this.picWall7);
             this.Controls.Add(this.lblInGameTime);
-            this.Controls.Add(this.lblInGameLvl);
+            this.Controls.Add(this.lblInGameLevel);
             this.Controls.Add(this.picWall1);
             this.Controls.Add(this.picWall0);
             this.Controls.Add(this.picWall6);
@@ -1024,8 +1028,9 @@
         private System.Windows.Forms.PictureBox picPlayer;
         private System.Windows.Forms.PictureBox picBossKoolAid;
         private System.Windows.Forms.Label lblInGameTime;
-        private System.Windows.Forms.Label lblInGameLvl;
+        private System.Windows.Forms.Label lblInGameLevel;
         private System.Windows.Forms.Timer tmrUpdateInGameTime;
+        private System.Windows.Forms.Timer tmrUpdateInGameLevel;
         private System.Windows.Forms.Timer tmrPlayerMove;
         private System.Windows.Forms.PictureBox picWall3;
         private System.Windows.Forms.PictureBox picWall5;
