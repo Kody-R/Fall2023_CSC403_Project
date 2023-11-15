@@ -13,8 +13,8 @@ namespace Fall2020_CSC403_Project {
 
         public GameState(int playerLevel, DateTime timeBegin)
         {
-            PlayerLevel = playerLevel;
-            TimeBegin = timeBegin;
+            PlayerLevel = 0;
+            TimeBegin = TimeBegin;
         }
     }
 
@@ -143,7 +143,7 @@ namespace Fall2020_CSC403_Project {
                 ResetLevel();
 
                 // Show the next level form
-                FrmLevel2 nextLevelForm = new FrmLevel2();
+                FrmLevel2 nextLevelForm = new FrmLevel2(gameState);
                 nextLevelForm.Show();
 
                 this.Hide();
@@ -252,9 +252,9 @@ namespace Fall2020_CSC403_Project {
     {
         private Player player;
 
-        private Enemy enemyPoisonPacket;
-        private Enemy bossKoolaid;
-        private Enemy enemyCheeto;
+        private Enemy enemyKiss;
+        private Enemy evilPringle;
+        private Enemy enemyCandyCorn;
         private Item xpItem;
         private Character[] walls;
 
@@ -263,11 +263,10 @@ namespace Fall2020_CSC403_Project {
         private GameState gameState;
 
 
-        public FrmLevel2()
+        public FrmLevel2(GameState gameState)
         {
            InitializeComponent_2();
             this.gameState = gameState;
-            player.setLevel(gameState.PlayerLevel);
             
         }
 
@@ -278,19 +277,20 @@ namespace Fall2020_CSC403_Project {
             const int NUM_WALLS = 11;
 
             player = new Player(CreatePosition(picPlayer), CreateCollider(picPlayer, PADDING));
-            bossKoolaid = new Enemy(CreatePosition(picBossKoolAid), CreateCollider(picBossKoolAid, PADDING));
-            enemyPoisonPacket = new Enemy(CreatePosition(picEnemyPoisonPacket), CreateCollider(picEnemyPoisonPacket, PADDING));
-            enemyCheeto = new Enemy(CreatePosition(picEnemyCheeto), CreateCollider(picEnemyCheeto, PADDING));
+            evilPringle = new Enemy(CreatePosition(picPringle), CreateCollider(picPringle, PADDING));
+            enemyCandyCorn = new Enemy(CreatePosition(picEnemyCandyCorn), CreateCollider(picEnemyCandyCorn, PADDING));
+            enemyKiss = new Enemy(CreatePosition(picEnemyKiss), CreateCollider(picEnemyKiss, PADDING));
             xpItem = new Item(CreatePosition(picXpItem), CreateCollider(picXpItem, PADDING));
 
-            bossKoolaid.Img = picBossKoolAid.BackgroundImage;
-            enemyPoisonPacket.Img = picEnemyPoisonPacket.BackgroundImage;
-            enemyCheeto.Img = picEnemyCheeto.BackgroundImage;
+            evilPringle.Img = picPringle.BackgroundImage;
+            enemyCandyCorn.Img = picEnemyCandyCorn.BackgroundImage;
+            enemyKiss.Img = picEnemyKiss.BackgroundImage;
             xpItem.Img = picXpItem.BackgroundImage;
 
-            bossKoolaid.Color = Color.Red;
-            enemyPoisonPacket.Color = Color.Green;
-            enemyCheeto.Color = Color.FromArgb(255, 245, 161);
+            player.setLevel(gameState.PlayerLevel);
+            evilPringle.Color = Color.Red;
+            enemyCandyCorn.Color = Color.Orange;
+            enemyKiss.Color = Color.Silver;
             xpItem.Color = Color.Orange;
 
             walls = new Character[NUM_WALLS];
@@ -353,18 +353,18 @@ namespace Fall2020_CSC403_Project {
             }
 
             // check collision with enemies
-            if (HitAChar(player, enemyPoisonPacket))
+            if (HitAChar(player, enemyKiss))
             {
-                Fight(enemyPoisonPacket);
+                Fight(enemyKiss);
 
             }
-            else if (HitAChar(player, enemyCheeto))
+            else if (HitAChar(player, enemyCandyCorn))
             {
-                Fight(enemyCheeto);
+                Fight(enemyCandyCorn);
             }
-            if (HitAChar(player, bossKoolaid))
+            if (HitAChar(player, evilPringle))
             {
-                Fight(bossKoolaid);
+                Fight(evilPringle);
             }
             else if (HitAChar(player, xpItem))
             {
@@ -416,11 +416,6 @@ namespace Fall2020_CSC403_Project {
             player.MoveBack();
             frmBattle = FrmBattle.GetInstance(enemy);
             frmBattle.Show();
-
-            if (enemy == bossKoolaid)
-            {
-                frmBattle.SetupForBossBattle();
-            }
         }
 
         private void FrmLevel2_KeyDown(object sender, KeyEventArgs e)
@@ -462,11 +457,8 @@ namespace Fall2020_CSC403_Project {
     public partial class FrmLevel_Boss : Form
     {
         private Player player;
-
-        private Enemy enemyPoisonPacket;
         private Enemy bossKoolaid;
-        private Enemy enemyCheeto;
-        private Item xpItem;
+        
         private Character[] walls;
 
         private DateTime timeBegin;
