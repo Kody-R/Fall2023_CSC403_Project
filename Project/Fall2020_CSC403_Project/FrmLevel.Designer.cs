@@ -425,7 +425,7 @@
             this.tmrUpdateInGameTime = new System.Windows.Forms.Timer(this.components);
             this.tmrUpdateInGameLevel = new System.Windows.Forms.Timer(this.components);
             this.tmrPlayerMove = new System.Windows.Forms.Timer(this.components);
-            this.picCandyCorn = new System.Windows.Forms.PictureBox();
+            this.picEnemyCandyCorn = new System.Windows.Forms.PictureBox();
             this.picXpItem = new System.Windows.Forms.PictureBox();
             this.picEnemyKiss = new System.Windows.Forms.PictureBox();
             this.picWall3 = new System.Windows.Forms.PictureBox();
@@ -528,7 +528,7 @@
             this.picEnemyKiss.BackgroundImage = global::Fall2020_CSC403_Project.Properties.Resources.Kiss;
             this.picEnemyKiss.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.picEnemyKiss.Location = new System.Drawing.Point(110, 98);
-            this.picEnemyKiss.Name = "picEnemyPoisonPacket";
+            this.picEnemyKiss.Name = "picEnemyKiss";
             this.picEnemyKiss.Size = new System.Drawing.Size(63, 96);
             this.picEnemyKiss.TabIndex = 4;
             this.picEnemyKiss.TabStop = false;
@@ -550,7 +550,7 @@
             this.picPringle.BackgroundImage = global::Fall2020_CSC403_Project.Properties.Resources.Pringle;
             this.picPringle.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.picPringle.Location = new System.Drawing.Point(971, 74);
-            this.picPringle.Name = "picBossKoolAid";
+            this.picPringle.Name = "picPringle";
             this.picPringle.Size = new System.Drawing.Size(193, 194);
             this.picPringle.TabIndex = 1;
             this.picPringle.TabStop = false;
