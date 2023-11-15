@@ -10,30 +10,21 @@ using System.Windows.Forms;
 
 namespace Fall2020_CSC403_Project
 {
-    public partial class MainMenu : Form
+    public partial class Pause : Form
     {
-        public MainMenu()
+        public Pause()
         {
             InitializeComponent();
         }
 
-        private void btnStart_Click(object sender, EventArgs e)
+        private void btnResume_Click(object sender, EventArgs e)
         {
-            CharSelect charSelect = new CharSelect();
-            this.Hide();
-            charSelect.Show();
-        }
-
-        private void btnControls_Click(object sender, EventArgs e)
-        {
-            Controller controller = new Controller();
-            controller.Show();
+            Close();
         }
 
         private void btnQuit_Click(object sender, EventArgs e)
         {
             Application.Exit();
         }
-
     }
 }

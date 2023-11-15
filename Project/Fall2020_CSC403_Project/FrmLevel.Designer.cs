@@ -1,4 +1,7 @@
-﻿namespace Fall2020_CSC403_Project {
+﻿using Fall2020_CSC403_Project.code;
+using System.Drawing;
+
+namespace Fall2020_CSC403_Project {
   partial class FrmLevel {
     /// <summary>
     /// Required designer variable.
@@ -23,6 +26,7 @@
     /// the contents of this method with the code editor.
     /// </summary>
     private void InitializeComponent() {
+
       this.components = new System.ComponentModel.Container();
       System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmLevel));
       this.lblInGameTime = new System.Windows.Forms.Label();
@@ -361,6 +365,7 @@
       this.ResumeLayout(false);
       this.PerformLayout();
 
+
     }
 
     #endregion
@@ -418,6 +423,7 @@
         /// </summary>
         private void InitializeComponent_2()
         {
+
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmLevel));
             this.lblInGameTime = new System.Windows.Forms.Label();
@@ -558,7 +564,7 @@
             // picPlayer
             // 
             this.picPlayer.BackColor = System.Drawing.Color.Transparent;
-            this.picPlayer.BackgroundImage = global::Fall2020_CSC403_Project.Properties.Resources.player;
+            //this.picPlayer.BackgroundImage = global::Fall2020_CSC403_Project.Properties.Resources.player;
             this.picPlayer.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.picPlayer.Location = new System.Drawing.Point(119, 510);
             this.picPlayer.Name = "picPlayer";
