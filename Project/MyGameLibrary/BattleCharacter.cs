@@ -34,7 +34,14 @@ namespace Fall2020_CSC403_Project.code {
     }
 
     public void AlterHealth(int amount) {
-      Health += amount;
+      if ((amount + Health) > MaxHealth)
+            {
+                Health = MaxHealth;
+            }
+            else
+            {
+                Health += amount;
+            }
     }
 
     public void AlterLives()

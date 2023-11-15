@@ -3,8 +3,34 @@ using Fall2020_CSC403_Project.Properties;
 using System;
 using System.Drawing;
 using System.Windows.Forms;
+using System.Threading.Tasks;
+using SharpDX;
+using SharpDX.DirectInput;
+using System.CodeDom;
 using System.Media;
 
+namespace Fall2020_CSC403_Project
+{
+    public partial class FrmLevel : Form
+    {
+        private FrmLevel frmLevel;
+        public event Action<int, FrmLevel> ControllerButtonPressed;
+        private Player player;
+        private Enemy enemyPoisonPacket;
+        private Enemy bossKoolaid;
+        private Enemy enemyCheeto;
+        private Item xpItem;
+        private Character[] walls;
+        private Task controllerTask;
+        private bool controllerThreadRunning = true;
+        private DateTime timeBegin;
+        private FrmBattle frmBattle;
+        
+
+        public FrmLevel()
+        {
+            InitializeComponent();
+        }
 namespace Fall2020_CSC403_Project {
     public class GameState
     {
@@ -43,12 +69,23 @@ namespace Fall2020_CSC403_Project {
       charSelected = choice;
     }
 
+        private void FrmLevel_Load(object sender, EventArgs e)
+        {
+
+            const int PADDING = 7;
+            const int NUM_WALLS = 13;
     private void FrmLevel_Load(object sender, EventArgs e) {
       
       const int PADDING = 7;
       const int NUM_WALLS = 13;
       gameState = new GameState(1, DateTime.Now, 0);
 
+            SoundPlayer soundtrack = new SoundPlayer(Resources.GameSoundtrack);
+            player = new Player(CreatePosition(picPlayer), CreateCollider(picPlayer, PADDING));
+            bossKoolaid = new Enemy(CreatePosition(picBossKoolAid), CreateCollider(picBossKoolAid, PADDING));
+            enemyPoisonPacket = new Enemy(CreatePosition(picEnemyPoisonPacket), CreateCollider(picEnemyPoisonPacket, PADDING));
+            enemyCheeto = new Enemy(CreatePosition(picEnemyCheeto), CreateCollider(picEnemyCheeto, PADDING));
+            xpItem = new Item(CreatePosition(picXpItem), CreateCollider(picXpItem, PADDING));
       // character select
       if(charSelected == 1)
             {
@@ -70,16 +107,95 @@ namespace Fall2020_CSC403_Project {
       enemyCheeto = new Enemy(CreatePosition(picEnemyCheeto), CreateCollider(picEnemyCheeto, PADDING));
       xpItem = new Item(CreatePosition(picXpItem), CreateCollider(picXpItem, PADDING));
 
-      bossKoolaid.Img = picBossKoolAid.BackgroundImage;
-      enemyPoisonPacket.Img = picEnemyPoisonPacket.BackgroundImage;
-      enemyCheeto.Img = picEnemyCheeto.BackgroundImage;
-      xpItem.Img = picXpItem.BackgroundImage;
+            bossKoolaid.Img = picBossKoolAid.BackgroundImage;
+            enemyPoisonPacket.Img = picEnemyPoisonPacket.BackgroundImage;
+            enemyCheeto.Img = picEnemyCheeto.BackgroundImage;
+            xpItem.Img = picXpItem.BackgroundImage;
 
-      bossKoolaid.Color = Color.Red;
-      enemyPoisonPacket.Color = Color.Green;
-      enemyCheeto.Color = Color.FromArgb(255, 245, 161);
-      xpItem.Color = Color.Orange;
+            bossKoolaid.Color = Color.Red;
+            enemyPoisonPacket.Color = Color.Green;
+            enemyCheeto.Color = Color.FromArgb(255, 245, 161);
+            xpItem.Color = Color.Orange;
 
+            walls = new Character[NUM_WALLS];
+            for (int w = 0; w < NUM_WALLS; w++)
+            {
+                PictureBox pic = Controls.Find("picWall" + w.ToString(), true)[0] as PictureBox;
+                walls[w] = new Character(CreatePosition(pic), CreateCollider(pic, PADDING));
+            }
+            Game.player = player;
+            timeBegin = DateTime.Now;
+            soundtrack.Play();
+            controllerTask = Task.Run(ControllerState);
+            
+        }
+
+        private void FrmLevel_FormClosing(object sender, FormClosingEventArgs e)
+            {
+                // Stop the controller input thread when the form is closing
+                controllerThreadRunning = false;
+                controllerTask.Wait(); // Wait for the thread to finish gracefully
+            }
+
+            private void ControllerState()
+            {
+                DirectInput directInput = new DirectInput();
+                var devices = directInput.GetDevices(DeviceClass.GameControl, DeviceEnumerationFlags.AttachedOnly);
+
+                if (devices.Count == 0)
+                {
+                    Console.WriteLine("No game controllers found.");
+                    return;
+                }
+
+                var deviceInstance = devices[0];
+                var joystick = new Joystick(directInput, deviceInstance.InstanceGuid);
+                joystick.Acquire();
+
+                try
+                {
+                    while (controllerThreadRunning)
+                    {
+                        joystick.Poll();
+                        var state = joystick.GetCurrentState();
+
+                        // Read controller input and update the player
+                        UpdatePlayerBasedOnControllerInput(state);
+                        if (ControllerButtonPressed != null)
+                        {
+                            for (int i = 0; i < state.Buttons.Length; i++)
+                            {
+                                if (state.Buttons[i])
+                                {
+                                    ControllerButtonPressed.DynamicInvoke(i);
+                                }
+                            }
+                        }
+                    System.Threading.Thread.Sleep(10);
+                    }
+                }
+                finally
+                {
+                    joystick.Unacquire();
+                }
+            }
+
+            private void UpdatePlayerBasedOnControllerInput(JoystickState state)
+            {
+            for (int i = 0; i < state.Buttons.Length; i++)
+            {
+
+                if (state.X.Equals(0) && state.Y.Equals(32511))
+                {
+                    player.GoLeft();
+                    break;
+                }
+
+                else if (state.X.Equals(32511) && state.Y.Equals(0))
+                {
+                    player.GoUp();
+                    break;
+                }
       walls = new Character[NUM_WALLS];
       for (int w = 0; w < NUM_WALLS; w++) {
         PictureBox pic = Controls.Find("picWall" + w.ToString(), true)[0] as PictureBox;
@@ -92,15 +208,49 @@ namespace Fall2020_CSC403_Project {
     
     }
 
-    private Vector2 CreatePosition(PictureBox pic) {
-      return new Vector2(pic.Location.X, pic.Location.Y);
-    }
+                else if (state.X.Equals(65535) && state.Y.Equals(32511))
+                {
+                    player.GoRight();
+                    break;
+                }
 
-    private Collider CreateCollider(PictureBox pic, int padding) {
-      Rectangle rect = new Rectangle(pic.Location, new Size(pic.Size.Width - padding, pic.Size.Height - padding));
-      return new Collider(rect);
-    }
+                else if (state.X.Equals(32511) && state.Y.Equals(65535))
+                {
+                    player.GoDown();
+                    break;
+                }
+                else { }
+            }
+        }
 
+        private Vector2 CreatePosition(PictureBox pic)
+        {
+            return new Vector2(pic.Location.X, pic.Location.Y);
+        }
+
+        private Collider CreateCollider(PictureBox pic, int padding)
+        {
+            Rectangle rect = new Rectangle(pic.Location, new Size(pic.Size.Width - padding, pic.Size.Height - padding));
+            return new Collider(rect);
+        }
+
+        private void tmrUpdateInGameTime_Tick(object sender, EventArgs e)
+        {
+            TimeSpan span = DateTime.Now - timeBegin;
+            string time = span.ToString(@"hh\:mm\:ss");
+            lblInGameTime.Text = "Time: " + time.ToString();
+        }
+        private void lblUpdateInGameLvl(object sender, EventArgs e)
+        {
+            string level = player.level.ToString();
+            lblInGameLvl.Text = "Level: " + level;
+        }
+        private void tmrPlayerMove_Tick(object sender, EventArgs e)
+        {
+            if (player != null)
+            {
+                // move player
+                player.Move();
     private void FrmLevel_KeyUp(object sender, KeyEventArgs e) {
       player.ResetMoveSpeed();
     }
@@ -128,11 +278,49 @@ namespace Fall2020_CSC403_Project {
 
       player.Move();
 
-      // check collision with walls
-      if (HitAWall(player)) {
-        player.MoveBack();
-      }
+                // check collision with walls
+                if (HitAWall(player))
+                {
+                    player.MoveBack();
+                }
 
+                // check collision with enemies
+                if (HitAChar(player, enemyPoisonPacket))
+                {
+                    Fight(enemyPoisonPacket);
+
+                }
+                else if (HitAChar(player, enemyCheeto))
+                {
+                    Fight(enemyCheeto);
+                }
+                if (HitAChar(player, bossKoolaid))
+                {
+                    Fight(bossKoolaid);
+                }
+                else if (HitAChar(player, xpItem))
+                {
+                    Pickup(xpItem);
+                }
+                // update player's picture box
+                picPlayer.Location = new Point((int)player.Position.x, (int)player.Position.y);
+            }
+            
+        }
+
+        private bool HitAWall(Character c)
+        {
+            bool hitAWall = false;
+            for (int w = 0; w < walls.Length; w++)
+            {
+                if (c.Collider.Intersects(walls[w].Collider))
+                {
+                    hitAWall = true;
+                    break;
+                }
+            }
+            return hitAWall;
+        }
       // check collision with enemies
       if (HitAChar(player, enemyPoisonPacket)) {
         Fight(enemyPoisonPacket);
@@ -181,10 +369,11 @@ namespace Fall2020_CSC403_Project {
       return hitAWall;
     }
 
-    private bool HitAChar(Character you, Character other) {
-      return you.Collider.Intersects(other.Collider);
-    }
-    private void Pickup(Item item) //Pickup function that will be called when a player picks up an item and this will give the player xp equal to one level
+        private bool HitAChar(Character you, Character other)
+        {
+            return you.Collider.Intersects(other.Collider);
+        }
+        private void Pickup(Item item) //Pickup function that will be called when a player picks up an item and this will give the player xp equal to one level
         {
             if (item.Color == Color.Orange) //This checks to see if the character has already picked up the item as to not give an infinite means of xp
             {
@@ -194,13 +383,24 @@ namespace Fall2020_CSC403_Project {
                 item.Color = Color.Black;
                 item.Collider.MovePosition(0, 0);
             }
-            
+
             else
             {
                 player.ResetMoveSpeed();
                 player.MoveBack();
             }
         }
+        private void Fight(Enemy enemy)
+        {
+            player.ResetMoveSpeed();
+            player.MoveBack();
+            frmLevel = new FrmLevel();
+            frmBattle = FrmBattle.GetInstance(enemy, frmLevel);
+            if (frmBattle != null)
+            {
+                frmBattle.Show();
+            }
+                
     private void Fight(Enemy enemy) {
       
       player.ResetMoveSpeed();
@@ -524,6 +724,11 @@ namespace Fall2020_CSC403_Project {
             enemyCandyCorn.Collider.MovePosition(0, 0);
             enemyKiss.Collider.MovePosition(0, 0);
 
+            if (enemy == bossKoolaid && frmBattle != null)
+            {
+                frmBattle.SetupForBossBattle();
+            }
+        }
             // Reset item state
             xpItem.Color = Color.Orange;
             xpItem.Collider.MovePosition(0, 0);
@@ -726,10 +931,14 @@ namespace Fall2020_CSC403_Project {
         {
 
         }
+        private void lblInGameLvl_Click(object sender, EventArgs e)
+        }
         private void lblInGameLevel_Click(object sender, EventArgs e)
         {
 
         }
+    }
+}
     }
 
 }
